@@ -11,6 +11,7 @@ export default function HomePage() {
     <>
       <Head>
         <title>Home - Nextron (basic-lang-javascript)</title>
+
       </Head>
       <div>
         <p>
