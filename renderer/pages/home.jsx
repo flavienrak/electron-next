@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Image from "next/image";
+import styles from "./styles/home.module.css";
 
 import { useState } from "react";
 
@@ -31,7 +32,7 @@ export default function HomePage() {
         >
           Test IPC
         </button>
-        <p>{message}</p>
+        <p className={styles.message}>{message}</p>
       </div>
     </>
   );
