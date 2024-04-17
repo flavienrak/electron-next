@@ -16,7 +16,6 @@ export default function HomePage() {
     <React.Fragment>
       <Head>
         <title>Home - Nextron (basic-lang-javascript)</title>
-
       </Head>
       <div>
         <p>
