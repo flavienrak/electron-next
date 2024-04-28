@@ -1,0 +1,49 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.content {
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.footer button {
+  margin-left: 10px;
+}
+
+/* Styles pour les divisions entre sections */
+.ant-divider-horizontal {
+  margin: 20px 0;
+}
+
+/* Styles pour les informations sur l'utilisateur */
+.user-info {
+  margin-bottom: 20px;
+}
+
+/* Styles pour les détails du projet */
+.project-details {
+  margin-bottom: 20px;
+}
+
+/* Styles pour le profil recherché */
+.profile-details {
+  margin-bottom: 20px;
+}
+
+/* Styles pour le texte des informations */
+.ant-typography {
+  margin-bottom: 10px;
+}
