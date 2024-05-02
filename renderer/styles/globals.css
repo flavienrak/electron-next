@@ -2,14 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-gray-900 text-white;
-  }
+*,
+html,
+body {
+  --primary-color: #e33cc2;
+  margin: 0;
+  padding: 0;
+  font-size: calc(0.6vh + 0.45vw + 5px);
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  color: inherit;
+  text-overflow: ellipsis;
+  text-decoration: inherit;
+  border: inherit;
+  outline: inherit;
+  font-family: sans-serif;
 }
 
-@layer components {
-  .btn-blue {
-    @apply text-white font-bold px-4 py-2 rounded bg-blue-600 hover:bg-blue-500;
-  }
+*::selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+* {
+  border: none;
+}
+
+.br {
+  border: 1px solid rgb(200, 200, 200);
 }

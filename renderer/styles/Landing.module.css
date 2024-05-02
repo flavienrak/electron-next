@@ -1,0 +1,56 @@
+/* description.module.css */
+.container {
+  padding: 1rem;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/images/back.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: white;
+}
+
+.tabsContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftTabs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rightTabs {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.link {
+  cursor: pointer;
+  color: #fffb0b;
+}
+
+.button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.descriptionContainer {
+  margin-top: 20px;
+}
+
+.description {
+  font-size: 16px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  line-height: 1.5;
+  color: rgb(255, 255, 255);
+}
+
+/* Ajoutez d'autres styles CSS selon les besoins */
