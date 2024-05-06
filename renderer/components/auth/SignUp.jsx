@@ -3,12 +3,16 @@ import styles from "../../styles/signup.module.css";
 
 import { signUpController } from "../../controllers/authController";
 import { Form, Input, Button, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { emailRegex } from "../../lib/regex";
+import { UidContext } from "../../context/UidContext";
+import { useRouter } from "next/navigation";
 
 const { Title } = Typography;
 
 export default function SignUpPage() {
+  const { addMessage } = useContext(UidContext);
+  const { push } = useRouter();
   const [nom, setNom] = useState({ value: "", valid: false });
   const [prenom, setPrenom] = useState({ value: "", valid: false });
   const [email, setEmail] = useState({ value: "", valid: false });
@@ -80,7 +84,18 @@ export default function SignUpPage() {
         email: email.value,
         password: password.value,
       });
-      console.log(res);
+      if (res?.userAlreadyExist) {
+        addMessage({
+          value: `L'adresse email ${email.value} est déjà enregistré.`,
+          type: "error",
+        });
+      } else if (res?.user) {
+        addMessage({
+          value: `Le compte a été créé avec succés. Veuillez vous connecter.`,
+          type: "success",
+        });
+        push("/home?path=login");
+      }
     }
   };
 

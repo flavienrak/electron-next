@@ -1,46 +1,33 @@
 "use client";
 
 import qs from "query-string";
-import TopLoadingBar from "../components/utils/TopLoadingBar";
 import RootLayout from "../components/RootLayout";
+import { unAuthenticadedPaths } from "../lib/paths";
 
-// import {
-//   refreshJWTController,
-//   verifyJWTController,
-// } from "@/lib/controllers/jwt.controller";
-// import { isEmpty } from "@/lib/utils/isEmpty";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, createContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { removeUserInfos, fetchUserInfos } from "@/redux/slices/userSlice";
-// import { updatePersistInfos } from "@/redux/slices/persistSlice";
-// import { fetchUserInfosController } from "@/lib/controllers/user.controller";
-// import { logoutController } from "@/lib/controllers/auth.controller";
-// import { protecedPaths } from "@/lib/utils/paths";
-// import { fetchProjets } from "@/redux/slices/projetSlice";
-// import { fetchUsers } from "@/redux/slices/usersSlice";
+import { isEmpty } from "../lib/isEmpty";
+import { verifyTokenController } from "../controllers/authController";
+import { updatePersistInfos } from "../redux/slices/persistSlice";
 
 export const UidContext = createContext();
 
 export default function UidContextProvider({ children }) {
   const path = usePathname();
   const params = useSearchParams();
+  const dispatch = useDispatch();
 
   const { authToken } = useSelector((state) => state.persistInfos);
   const { push } = useRouter();
 
-  const dispatch = useDispatch();
-
   const [widthProgressBar, setWidthProgressBar] = useState(0);
   const [userId, setUserId] = useState(null);
-  const [isRefreshed, setIsRefreshed] = useState(false);
   const [isLoadingJWT, setIsLoadingJWT] = useState(false);
   const [isVerifyAuthJWT, setIsVerifyAuthJWT] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
-  const [infosToUpdate, setInfosToUpdate] = useState({});
-  const [isFetch, setIsFetch] = useState(false);
   const [currentQuery, setCurrentQuery] = useState(null);
-  const [newQuery, setNewQuery] = useState(currentQuery);
+  const [messages, setMessages] = useState([]);
 
   // update current query
   useEffect(() => {
@@ -48,147 +35,62 @@ export default function UidContextProvider({ children }) {
     setCurrentQuery(newParams);
   }, [params]);
 
-  // useEffect(() => {
-  //   if (path === "/home" && !isEmpty(currentQuery?.token)) {
-  //     (async () => {
-  //       const res = await verifyJWTController(currentQuery.token);
+  useEffect(() => {
+    if (
+      unAuthenticadedPaths.includes(currentQuery?.path) &&
+      !isEmpty(authToken)
+    ) {
+      push("/home?path=home");
+    } else {
+      setIsLoadingJWT(true);
+      setIsVerifyAuthJWT(true);
+    }
+  }, [currentQuery?.path]);
 
-  //       if (res?.active) {
-  //         confetti.onActive();
-  //         popup.onActive();
+  useEffect(() => {
+    if (isVerifyAuthJWT) {
+      (async () => {
+        if (authToken) {
+          const res = await verifyTokenController(authToken);
 
-  //         dispatch(fetchUserInfos({ user: res.user }));
-  //         dispatch(
-  //           updatePersistInfos({
-  //             userType: res.userType,
-  //             lang: res.lang,
-  //           })
-  //         );
-  //         setUserId(res.user._id);
+          if (isEmpty(res?.id)) {
+            setIsLogout(true);
+          } else {
+            setUserId(res.id);
+          }
+        } else {
+          if (!unAuthenticadedPaths.includes(currentQuery?.path)) {
+            push("/home?path=signIn");
+          }
+        }
+      })();
+    }
+  }, [isVerifyAuthJWT]);
 
-  //         push("/home");
-  //       } else {
-  //         setIsVerifyAuthJWT(true);
-  //       }
-  //     })();
-  //   } else if (
-  //     protecedPaths.includes(path)
-  //     // || (path === "/home" && isEmpty(currentQuery?.token))
-  //   ) {
-  //     // if (confetti.isActive) {
-  //     //   confetti.onDisable();
-  //     // }
+  useEffect(() => {
+    if (isLogout) {
+      (async () => {
+        if (authToken) {
+          dispatch(updatePersistInfos({ authToken: "" }));
+        }
 
-  //     // if (popup.isActive) {
-  //     //   popup.onDisable();
-  //     // }
+        setIsLoadingJWT(false);
+        setIsLogout(false);
 
-  //     setIsLoadingJWT(true);
-  //     setIsVerifyAuthJWT(true);
-  //   }
-  // }, [currentQuery?.token]);
+        window.location = "/home?path=signIn";
+      })();
+    }
+  }, [isLogout]);
 
-  // useEffect(() => {
-  //   if (isVerifyAuthJWT) {
-  //     (async () => {
-  //       if (authToken) {
-  //         const res = await verifyJWTController(authToken);
+  useEffect(() => {
+    if (!isEmpty(messages)) {
+      const timeoutId = setTimeout(() => {
+        setMessages((prevMessages) => prevMessages.slice(0, -1));
+      }, 6000);
 
-  //         if (isEmpty(res?.infos)) {
-  //           setIsLogout(true);
-  //         } else {
-  //           if (userType !== res.infos?.userType) {
-  //             setInfosToUpdate((prev) => ({
-  //               ...prev,
-  //               userType: res.infos.userType,
-  //             }));
-  //           }
-  //           if (lang !== res.infos?.lang) {
-  //             setInfosToUpdate((prev) => ({
-  //               ...prev,
-  //               lang: res.infos.lang,
-  //             }));
-  //           }
-  //           if (lang !== res.infos?.isAdmin) {
-  //             setInfosToUpdate((prev) => ({
-  //               ...prev,
-  //               isAdmin: res.infos.isAdmin,
-  //             }));
-  //           }
-  //           setIsFetch(true);
-  //           setUserId(res.infos?.id);
-  //         }
-  //       } else {
-  //         window.location = "/login";
-  //       }
-  //     })();
-  //   }
-  // }, [isVerifyAuthJWT]);
-
-  // useEffect(() => {
-  //   if (isLogout) {
-  //     (async () => {
-  //       if (authToken) {
-  //         await logoutController(authToken);
-  //         dispatch(updatePersistInfos({ authToken }));
-  //       }
-
-  //       dispatch(removeUserInfos());
-  //       setIsLoadingJWT(false);
-  //       setIsLogout(false);
-
-  //       window.location = "/login";
-  //     })();
-  //   }
-  // }, [isLogout]);
-
-  // useEffect(() => {
-  //   if (isFetch) {
-  //     (async () => {
-  //       const res = await refreshJWTController(authToken);
-  //       if (res?.authToken) {
-  //         dispatch(updatePersistInfos({ authToken: res.authToken }));
-  //         setIsRefreshed(true);
-  //       }
-  //     })();
-  //   }
-  // }, [isFetch]);
-
-  // useEffect(() => {
-  //   if (userId && isRefreshed) {
-  //     (async () => {
-  //       const res = await fetchUserInfosController(userId);
-
-  //       if (isEmpty(res?.user)) {
-  //         setIsLogout(true);
-  //       } else {
-  //         setUserId(res.user._id);
-  //         dispatch(updatePersistInfos(infosToUpdate));
-  //         dispatch(fetchUserInfos({ user: res.user }));
-  //         dispatch(fetchUsers({ users: res.users }));
-  //         dispatch(fetchProjets({ projets: res.projets }));
-  //         setIsLoadingJWT(false);
-  //         setIsRefreshed(false);
-
-  //         if (!protecedPaths.includes(path) && path !== "/home") {
-  //           push("/home");
-  //         }
-  //       }
-  //     })();
-  //   }
-  // }, [isRefreshed]);
-
-  // useEffect(() => {
-  //   let timeoutId;
-  //   if (popup.isActive) {
-  //     timeoutId = setTimeout(() => {
-  //       popup.onDisable();
-  //     }, 6000);
-  //   }
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, [popup]);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [messages]);
 
   const removeQueries = (values) => {
     return Object.keys(currentQuery).reduce((nouvelObjet, cle) => {
@@ -197,6 +99,20 @@ export default function UidContextProvider({ children }) {
       }
       return nouvelObjet;
     }, {});
+  };
+
+  const addMessage = (message) => {
+    setMessages((prev) => {
+      let newState = [...prev];
+      newState.unshift(message);
+      return newState;
+    });
+  };
+
+  const removeMessage = (index) => {
+    setMessages((prev) =>
+      prev.filter((_, indexToRemove) => indexToRemove !== index)
+    );
   };
 
   const setLoadingBar = (value) => {
@@ -216,17 +132,15 @@ export default function UidContextProvider({ children }) {
           userId,
           isLoadingJWT,
           currentQuery,
+          widthProgressBar,
+          messages,
+          addMessage,
+          removeMessage,
           setLoadingBar,
           removeQueries,
         }}
       >
-        <RootLayout>
-          <TopLoadingBar
-            width={widthProgressBar}
-            visible={widthProgressBar > 0}
-          />
-          {children}
-        </RootLayout>
+        <RootLayout>{children}</RootLayout>
       </UidContext.Provider>
     );
 }

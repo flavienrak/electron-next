@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = { authToken: null };
+const initialState = { authToken: "" };
 
 const persistSlice = createSlice({
   name: "persistInfos",

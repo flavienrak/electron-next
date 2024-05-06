@@ -76,29 +76,7 @@ export default function DescriptionPage() {
         onCancel={() => setPrivacyVisible(false)}
         footer={null}
       >
-        <p>
-          Long texte ici...Long texte ici...Long texte ici...Long texte ici...
-          Long texte ici... Long texte ici... Long texte ici... Long texte
-          ici... Long texte ici... Long texte ici... Long texte ici... Long
-          texte ici... Long texte ici... Long texte ici... Long texte ici...
-          Long texte ici... Long texte ici... Long texte ici... Long texte
-          ici... Long texte ici... Long texte ici... Long texte ici... Long
-          texte ici... Long texte ici... Long texte ici... Long texte ici...
-          Long texte ici...Long texte ici...Long texte ici...Long texte ici...
-          Long texte ici... Long texte ici... Long texte ici... Long texte
-          ici... Long texte ici... Long texte ici... Long texte ici... Long
-          texte ici... Long texte ici... Long texte ici... Long texte ici...
-          Long texte ici... Long texte ici... Long texte ici... Long texte
-          ici... Long texte ici... Long texte ici... Long texte ici... Long
-          texte ici... Long texte ici... Long texte ici... Long texte ici...
-          Long texte ici...Long texte ici...Long texte ici...Long texte ici...
-          Long texte ici... Long texte ici... Long texte ici... Long texte
-          ici... Long texte ici... Long texte ici... Long texte ici... Long
-          texte ici... Long texte ici... Long texte ici... Long texte ici...
-          Long texte ici... Long texte ici... Long texte ici... Long texte
-          ici... Long texte ici... Long texte ici... Long texte ici... Long
-          texte ici... Long texte ici... Long texte ici... Long texte ici...
-        </p>
+        <p>Long texte ici...</p>
       </Modal>
     </RootLayout>
   );
