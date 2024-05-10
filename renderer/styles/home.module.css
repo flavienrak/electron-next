@@ -1,0 +1,9 @@
+.container {
+  min-height: 100vh;
+  padding: 1rem 2rem;
+}
+.bgImg {
+  background-image: url("/bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
