@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col, Card } from "antd";
 import { useRouter } from "next/navigation";
-import RootLayout from "../components/Layout";
 
 const MoreOptionsPage = () => {
   const { push } = useRouter();
@@ -26,7 +25,7 @@ const MoreOptionsPage = () => {
   };
 
   return (
-    <RootLayout>
+    <>
       <div className="more-options-container">
         <Row gutter={[16, 16]}>
           <Col xs={24} sm={12} md={8} lg={8} xl={8}>
@@ -67,7 +66,7 @@ const MoreOptionsPage = () => {
           </Col>
         </Row>
       </div>
-    </RootLayout>
+    </>
   );
 };
 

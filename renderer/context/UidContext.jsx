@@ -53,13 +53,16 @@ export default function UidContextProvider({ children }) {
         if (authToken) {
           const res = await verifyTokenController(authToken);
 
-          if (isEmpty(res?.id)) {
+          if (isEmpty(res?.decodedToken)) {
             setIsLogout(true);
           } else {
-            setUserId(res.id);
+            setUserId(res.decodedToken.id);
           }
         } else {
-          if (!unAuthenticadedPaths.includes(currentQuery?.path)) {
+          if (
+            !isEmpty(currentQuery?.path) &&
+            !unAuthenticadedPaths.includes(currentQuery?.path)
+          ) {
             push("/home?path=signIn");
           }
         }
@@ -77,7 +80,7 @@ export default function UidContextProvider({ children }) {
         setIsLoadingJWT(false);
         setIsLogout(false);
 
-        window.location = "/home?path=signIn";
+        // window.location = "/home?path=signIn";
       })();
     }
   }, [isLogout]);

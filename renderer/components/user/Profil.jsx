@@ -10,7 +10,7 @@ import {
 const handleGoBack = () => {
   // router.back(); // Rediriger vers la page précédente
 };
-export default function Profile() {
+export default function ProfilPage() {
   return (
     <>
       <div className="profile-container">

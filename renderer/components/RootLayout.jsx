@@ -7,21 +7,19 @@ import Landing from "./Landing";
 import SignInPage from "./auth/SignIn";
 import SignUpPage from "./auth/SignUp";
 import ResetPage from "./auth/Reset";
-// import SignUpPage from "./signup";
+import ProfilPage from "./user/Profil";
+import TopLoadingBar from "./utils/TopLoadingBar";
 
 import { isEmpty } from "../lib/isEmpty";
 import { useContext, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { UidContext } from "../context/UidContext";
 import { motion } from "framer-motion";
 
 import { IoCloseOutline } from "react-icons/io5";
-import TopLoadingBar from "./utils/TopLoadingBar";
 
 export default function RootLayout() {
   const { path, currentQuery, widthProgressBar, messages, removeMessage } =
     useContext(UidContext);
-  const { authToken } = useSelector((state) => state.persistInfos);
   const [title, setTitle] = useState("Landing");
 
   useEffect(() => {
@@ -56,42 +54,6 @@ export default function RootLayout() {
               href={{
                 pathname: path,
                 query: {
-                  path: "description",
-                },
-              }}
-            >
-              <label htmlFor="">Description</label>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href={{
-                pathname: path,
-                query: {
-                  path: "reset",
-                },
-              }}
-            >
-              <label htmlFor="">ForgetPassword</label>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href={{
-                pathname: path,
-                query: {
-                  path: "hello",
-                },
-              }}
-            >
-              <label htmlFor="">Hello</label>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href={{
-                pathname: path,
-                query: {
                   path: "home",
                 },
               }}
@@ -115,7 +77,14 @@ export default function RootLayout() {
             </Link>
           </div>
           <div>
-            <Link href={"/profil"}>
+            <Link
+              href={{
+                pathname: path,
+                query: {
+                  path: "profil",
+                },
+              }}
+            >
               <label htmlFor="">Profil</label>
             </Link>
           </div>
@@ -129,16 +98,6 @@ export default function RootLayout() {
               <label htmlFor="">Setting</label>
             </Link>
           </div>
-          <div>
-            <Link href={"/signin"}>
-              <label htmlFor="">SignIn</label>
-            </Link>
-          </div>
-          <div>
-            <Link href={"/signup"}>
-              <label htmlFor="">SignUp</label>
-            </Link>
-          </div>
         </div>
 
         {isEmpty(currentQuery?.path) && <Landing />}
@@ -146,6 +105,7 @@ export default function RootLayout() {
         {currentQuery?.path === "signIn" && <SignInPage />}
         {currentQuery?.path === "signUp" && <SignUpPage />}
         {currentQuery?.path === "reset" && <ResetPage />}
+        {currentQuery?.path === "profil" && <ProfilPage />}
         {/* {currentQuery?.path === "register" && <SignUpPage />} */}
         {!isEmpty(messages) && (
           <>

@@ -13,6 +13,7 @@ const { Title } = Typography;
 export default function SignUpPage() {
   const { addMessage } = useContext(UidContext);
   const { push } = useRouter();
+
   const [nom, setNom] = useState({ value: "", valid: false });
   const [prenom, setPrenom] = useState({ value: "", valid: false });
   const [email, setEmail] = useState({ value: "", valid: false });
@@ -71,6 +72,7 @@ export default function SignUpPage() {
 
   const handleSubmit = async () => {
     setIsSubmit(true);
+
     if (
       nom.valid &&
       prenom.valid &&
@@ -149,7 +151,16 @@ export default function SignUpPage() {
             />
           </Form.Item>
           <div className={styles.buttons}>
-            <Button className={styles.cancelButton}>Annuler</Button>
+            <Button
+              className={styles.cancelButton}
+              htmlType="button"
+              onClick={(e) => {
+                e.preventDefault();
+                push("/home");
+              }}
+            >
+              Annuler
+            </Button>
             <Button
               htmlType="submit"
               className={styles.createButton}
