@@ -9,6 +9,8 @@ import SignUpPage from "./auth/SignUp";
 import ResetPage from "./auth/Reset";
 import ProfilPage from "./user/Profil";
 import TopLoadingBar from "./utils/TopLoadingBar";
+import Left from "./Left";
+import Accueil from "./accueil/Accueil";
 
 import { isEmpty } from "../lib/isEmpty";
 import { useContext, useEffect, useState } from "react";
@@ -33,70 +35,17 @@ export default function RootLayout() {
       <Head>
         <title>{title}</title>
       </Head>
-      <div>
+      <div className="h-screen">
         <TopLoadingBar
           width={widthProgressBar}
           visible={widthProgressBar > 0}
         />
-        <div className="flex gap-4">
-          <div>
-            <Link
-              href={{
-                pathname: path,
-                query: {},
-              }}
-            >
-              <label htmlFor="">Accueil</label>
-            </Link>
+        <div className="flex h-full">
+          <div className="w-1/4 h-full">
+            <Left />
           </div>
-          <div>
-            <Link
-              href={{
-                pathname: path,
-                query: {
-                  path: "home",
-                },
-              }}
-            >
-              <label htmlFor="">Home</label>
-            </Link>
-          </div>
-          <div>
-            <Link href={"/jobDetails"}>
-              <label htmlFor="">JobDetails</label>
-            </Link>
-          </div>
-          <div>
-            <Link href={"/jobspace"}>
-              <label htmlFor="">JobSpace</label>
-            </Link>
-          </div>
-          <div>
-            <Link href={"/more"}>
-              <label htmlFor="">More</label>
-            </Link>
-          </div>
-          <div>
-            <Link
-              href={{
-                pathname: path,
-                query: {
-                  path: "profil",
-                },
-              }}
-            >
-              <label htmlFor="">Profil</label>
-            </Link>
-          </div>
-          <div>
-            <Link href={"/resultat"}>
-              <label htmlFor="">Resultat</label>
-            </Link>
-          </div>
-          <div>
-            <Link href={"/setting"}>
-              <label htmlFor="">Setting</label>
-            </Link>
+          <div className="w-3/4 h-full px-10">
+            <Accueil />
           </div>
         </div>
 

@@ -26,7 +26,7 @@ export default function UidContextProvider({ children }) {
   const [isLoadingJWT, setIsLoadingJWT] = useState(false);
   const [isVerifyAuthJWT, setIsVerifyAuthJWT] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
-  const [currentQuery, setCurrentQuery] = useState(null);
+  const [currentQuery, setCurrentQuery] = useState({});
   const [messages, setMessages] = useState([]);
 
   // update current query
@@ -126,6 +126,8 @@ export default function UidContextProvider({ children }) {
       }
     }
   };
+
+  console.log(currentQuery);
 
   if (typeof window !== "undefined")
     return (

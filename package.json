@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "my-nextron-app",
-  "description": "My application description",
+  "name": "job-macther",
+  "description": "Cette application permettra de determiner si un poste correspond a votre profil.",
   "version": "1.0.0",
-  "author": "Yoshihide Shiono <shiono.yoshihide@gmail.com>",
+  "author": "Flavien RAK",
   "main": "app/background.js",
   "scripts": {
     "dev": "nextron",
