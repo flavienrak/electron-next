@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "job-macther",
+  "name": "job-matcher",
   "description": "Cette application permettra de determiner si un poste correspond a votre profil.",
   "version": "1.0.0",
   "author": "Flavien RAK",

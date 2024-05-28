@@ -1,6 +1,7 @@
 "use client";
 
-import { IoIosNotificationsOutline } from "react-icons/io";
+import Top from "../Top";
+
 import { FaCaretRight } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa6";
 
@@ -8,19 +9,7 @@ export default function Accueil() {
   return (
     <>
       <div className="w-full h-full bg-white flex flex-col">
-        <div className="h-16 flex items-center">
-          <div className="flex justify-between items-center w-full">
-            <label className="">BIENVENUE</label>
-            <div className="flex gap-2 items-center">
-              <i className="p-1 min-w-10 min-h-10 not-italic bg-slate-200 rounded-full flex justify-center items-center">
-                M
-              </i>
-              <i className="p-1 min-w-10 min-h-10 not-italic bg-slate-200 rounded-full flex justify-center items-center">
-                <IoIosNotificationsOutline size={"1.5rem"} />
-              </i>
-            </div>
-          </div>
-        </div>
+        <Top label={"Bienvenue"} />
         <div className="flex gap-4 flex-1 justify-between items-center">
           <div className="w-1/2 grid grid-cols-2">
             <div className="bg-slate-400 h-40 w-full p-4 flex flex-col justify-between">

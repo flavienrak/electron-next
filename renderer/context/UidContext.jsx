@@ -2,8 +2,8 @@
 
 import qs from "query-string";
 import RootLayout from "../components/RootLayout";
-import { unAuthenticadedPaths } from "../lib/paths";
 
+import { unAuthenticadedPaths } from "../lib/paths";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, createContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -126,8 +126,6 @@ export default function UidContextProvider({ children }) {
       }
     }
   };
-
-  console.log(currentQuery);
 
   if (typeof window !== "undefined")
     return (

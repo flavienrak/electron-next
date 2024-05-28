@@ -1,16 +1,17 @@
 "use client";
 
 import Head from "next/head";
-import Home from "./Home";
-import Link from "next/link";
-import Landing from "./Landing";
 import SignInPage from "./auth/SignIn";
 import SignUpPage from "./auth/SignUp";
-import ResetPage from "./auth/Reset";
-import ProfilPage from "./user/Profil";
 import TopLoadingBar from "./utils/TopLoadingBar";
 import Left from "./Left";
 import Accueil from "./accueil/Accueil";
+import Recent from "./recent/Recent";
+import Postes from "./postes/Postes";
+import Nouveau from "./nouveau/Nouveau";
+import Profil from "./profil/Profil";
+import SinglePoste from "./postes/SinglePoste";
+import Result from "./result/Result";
 
 import { isEmpty } from "../lib/isEmpty";
 import { useContext, useEffect, useState } from "react";
@@ -45,17 +46,25 @@ export default function RootLayout() {
             <Left />
           </div>
           <div className="w-3/4 h-full px-10">
-            <Accueil />
+            {currentQuery.path === "recent" ? (
+              <Recent />
+            ) : currentQuery.path === "postes" ? (
+              <Postes />
+            ) : currentQuery.path === "nouveau" ? (
+              <Nouveau />
+            ) : currentQuery.path === "profil" ? (
+              <Profil />
+            ) : (
+              // <Accueil />
+              // <SinglePoste />
+              <Result />
+            )}
           </div>
         </div>
 
-        {isEmpty(currentQuery?.path) && <Landing />}
-        {currentQuery?.path === "home" && <Home />}
         {currentQuery?.path === "signIn" && <SignInPage />}
         {currentQuery?.path === "signUp" && <SignUpPage />}
-        {currentQuery?.path === "reset" && <ResetPage />}
-        {currentQuery?.path === "profil" && <ProfilPage />}
-        {/* {currentQuery?.path === "register" && <SignUpPage />} */}
+
         {!isEmpty(messages) && (
           <>
             {messages.map((mes, index) => (

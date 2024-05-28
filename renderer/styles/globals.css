@@ -14,7 +14,6 @@ body {
   color: inherit;
   text-overflow: ellipsis;
   text-decoration: inherit;
-  outline: inherit;
   font-family: sans-serif;
 }
 
@@ -25,4 +24,14 @@ body {
 
 .br {
   border: 1px solid rgb(200, 200, 200);
+}
+
+textarea {
+  resize: none;
+}
+
+.circle-progress {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  color: rgb(30, 200, 53);
 }

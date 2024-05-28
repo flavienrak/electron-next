@@ -32,11 +32,6 @@ const menu = [
     path: "recent",
     icon: <MdRestore size={"1.5rem"} />,
   },
-  {
-    label: "Profil",
-    path: "profil",
-    icon: <AiOutlineUser size={"1.5rem"} />,
-  },
 ];
 
 export default function Left() {
@@ -74,22 +69,22 @@ export default function Left() {
               </Link>
             ))}
           </div>
-          <div className="px-5 py-2 gap-2 flex flex-col">
+          <div className="p-5 gap-2 flex flex-col">
             <Link
               href={{
                 pathname: path,
                 query: {
-                  path: "settings",
+                  path: "profil",
                 },
               }}
               className={`flex items-center gap-2 p-2 transition-all duration-150 ${
-                currentQuery.path === "settings"
+                currentQuery.path === "profil"
                   ? "bg-slate-100 border-l-2 border-slate-950"
                   : ""
               }`}
             >
-              <RiSettings4Line size={"1.5rem"} />
-              <span className="">Parametres</span>
+              <AiOutlineUser size={"1.5rem"} />
+              <span className="">Mon profil</span>
             </Link>
           </div>
         </div>
