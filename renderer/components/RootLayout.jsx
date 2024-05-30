@@ -53,7 +53,7 @@ export default function RootLayout() {
         ) : currentQuery?.path === "signUp" ? (
           <SignUpPage />
         ) : (
-          !isLoadingJWT && (
+          isLoadingJWT === false && (
             <div className="flex h-full">
               <div className="w-1/4 h-full">
                 <Left />

@@ -1,1 +1,1 @@
-export const unAuthenticadedPaths = ["signIn", "signUp", "reset"];
+export const unAuthenticadedPaths = ["signIn", "signUp"];

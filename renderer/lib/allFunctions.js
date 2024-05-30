@@ -32,3 +32,8 @@ export function getColor(value) {
 
   return `rgb(${color.r}, ${color.g}, ${color.b})`;
 }
+
+export function validatePhoneNumber(value) {
+  const regex = /^\+?[1-9]\d{1,14}$/;
+  return regex.test(value);
+}

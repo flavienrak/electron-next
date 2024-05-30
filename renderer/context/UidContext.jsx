@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../lib/isEmpty";
 import { verifyTokenController } from "../controllers/authController";
 import { updatePersistInfos } from "../redux/slices/persistSlice";
+import { fetchUserInfos } from "../redux/slices/userSlice";
 
 export const UidContext = createContext();
 
@@ -18,14 +19,16 @@ export default function UidContextProvider({ children }) {
   const params = useSearchParams();
   const dispatch = useDispatch();
 
+  const { user } = useSelector((state) => state.user);
   const { authToken } = useSelector((state) => state.persistInfos);
   const { push } = useRouter();
 
   const [widthProgressBar, setWidthProgressBar] = useState(0);
   const [userId, setUserId] = useState(null);
-  const [isLoadingJWT, setIsLoadingJWT] = useState(true);
+  const [isLoadingJWT, setIsLoadingJWT] = useState(null);
   const [isVerifyAuthJWT, setIsVerifyAuthJWT] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
+  const [letter, setLetter] = useState("");
   const [currentQuery, setCurrentQuery] = useState({});
   const [messages, setMessages] = useState([]);
 
@@ -40,8 +43,8 @@ export default function UidContextProvider({ children }) {
       unAuthenticadedPaths.includes(currentQuery?.path) &&
       !isEmpty(authToken)
     ) {
-      push("/home?path=home");
-    } else {
+      push("/home?path=accueil");
+    } else if (!isVerifyAuthJWT) {
       setIsLoadingJWT(true);
       setIsVerifyAuthJWT(true);
     }
@@ -57,6 +60,8 @@ export default function UidContextProvider({ children }) {
             setIsLogout(true);
           } else {
             setUserId(res.decodedToken.id);
+            dispatch(fetchUserInfos({ user: res.user }));
+            setIsLoadingJWT(false);
           }
         } else {
           if (!unAuthenticadedPaths.includes(currentQuery?.path)) {
@@ -77,7 +82,7 @@ export default function UidContextProvider({ children }) {
         setIsLoadingJWT(false);
         setIsLogout(false);
 
-        // window.location = "/home?path=signIn";
+        window.location = "/home?path=signIn";
       })();
     }
   }, [isLogout]);
@@ -91,6 +96,13 @@ export default function UidContextProvider({ children }) {
       return () => clearTimeout(timeoutId);
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (user?.prenom) {
+      console.log(user.prenom);
+      setLetter(user.prenom?.charAt(0));
+    }
+  }, [user?.prenom]);
 
   const removeQueries = (values) => {
     return Object.keys(currentQuery).reduce((nouvelObjet, cle) => {
@@ -134,6 +146,7 @@ export default function UidContextProvider({ children }) {
           currentQuery,
           widthProgressBar,
           messages,
+          letter,
           addMessage,
           removeMessage,
           setLoadingBar,

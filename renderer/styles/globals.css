@@ -35,3 +35,32 @@ textarea {
   stroke-linejoin: round;
   color: rgb(30, 200, 53);
 }
+
+#rfs-btn {
+  background: rgb(226, 232, 240);
+  border: none;
+}
+
+.react-tel-input {
+  padding: 0;
+}
+.react-tel-input input.form-control {
+  height: 100%;
+  width: 100%;
+  background: rgb(226, 232, 240);
+  border: none;
+}
+.react-tel-input div.flag-dropdown {
+  background: rgb(226, 232, 240);
+  border: none;
+  border-radius: 0;
+}
+.react-tel-input div.flag-dropdown:hover {
+  background: rgb(100, 116, 139);
+}
+
+div.css-13cymwt-control {
+  background: rgb(226, 232, 240);
+  border: none;
+  height: 2.5rem;
+}

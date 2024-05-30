@@ -19,11 +19,8 @@ export default function SignUpPage() {
   const [prenom, setPrenom] = useState({ value: "", valid: false });
   const [email, setEmail] = useState({ value: "", valid: false });
   const [password, setPassword] = useState({ value: "", valid: false });
-  const [confirmPassword, setConfirmPassword] = useState({
-    value: "",
-    valid: false,
-  });
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // nom
@@ -53,40 +50,22 @@ export default function SignUpPage() {
     } else {
       setPassword((prev) => ({ ...prev, valid: false }));
     }
+  }, [nom.value, prenom.value, email.value, password.value]);
 
-    // confirm password
-    if (
-      password.value?.length > 5 &&
-      confirmPassword.value === password.value
-    ) {
-      setConfirmPassword((prev) => ({ ...prev, valid: true }));
-    } else {
-      setConfirmPassword((prev) => ({ ...prev, valid: false }));
-    }
-  }, [
-    nom.value,
-    prenom.value,
-    email.value,
-    password.value,
-    confirmPassword.value,
-  ]);
-
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     setIsSubmit(true);
 
-    if (
-      nom.valid &&
-      prenom.valid &&
-      email.valid &&
-      password.valid &&
-      confirmPassword.valid
-    ) {
+    if (nom.valid && prenom.valid && email.valid && password.valid) {
+      setIsLoading(true);
       const res = await signUpController({
         nom: nom.value,
         prenom: prenom.value,
         email: email.value,
         password: password.value,
       });
+      setIsLoading(false);
+
       if (res?.userAlreadyExist) {
         addMessage({
           value: `L'adresse email ${email.value} est déjà enregistré.`,
@@ -97,7 +76,7 @@ export default function SignUpPage() {
           value: `Le compte a été créé avec succés. Veuillez vous connecter.`,
           type: "success",
         });
-        push("/home?path=login");
+        push("/home?path=signIn");
       }
     }
   };
@@ -105,7 +84,10 @@ export default function SignUpPage() {
   return (
     <>
       <div className="w-full h-full flex justify-center items-center">
-        <form className="py-8 px-10 rounded-md shadow-md flex flex-col gap-5">
+        <form
+          onSubmit={handleSubmit}
+          className="py-8 px-10 rounded-md shadow-md flex flex-col gap-5"
+        >
           <div className="flex flex-col">
             <h1 className="text-3xl font-semibold text-[var(--primary-color)]">
               Creer un compte
@@ -118,6 +100,9 @@ export default function SignUpPage() {
                 <input
                   type="text"
                   placeholder="Nom"
+                  onChange={(e) =>
+                    setNom((prev) => ({ ...prev, value: e.target.value }))
+                  }
                   className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
                 />
                 <i className="text-slate-400 absolute left-3">
@@ -128,6 +113,9 @@ export default function SignUpPage() {
                 <input
                   type="text"
                   placeholder="Prenom"
+                  onChange={(e) =>
+                    setPrenom((prev) => ({ ...prev, value: e.target.value }))
+                  }
                   className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
                 />
                 <i className="text-slate-400 absolute left-3">
@@ -138,6 +126,9 @@ export default function SignUpPage() {
                 <input
                   type="text"
                   placeholder="Email"
+                  onChange={(e) =>
+                    setEmail((prev) => ({ ...prev, value: e.target.value }))
+                  }
                   className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
                 />
                 <i className="text-slate-400 absolute left-3">
@@ -148,6 +139,9 @@ export default function SignUpPage() {
                 <input
                   type="password"
                   placeholder="Mot de passe"
+                  onChange={(e) =>
+                    setPassword((prev) => ({ ...prev, value: e.target.value }))
+                  }
                   className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
                 />
                 <i className="text-slate-400 absolute left-3">
@@ -157,9 +151,11 @@ export default function SignUpPage() {
             </div>
             <button
               type="submit"
-              className="bg-[var(--primary-color)] text-white py-2 rounded-md"
+              className={`bg-[var(--primary-color)] text-white py-2 rounded-sm ${
+                isLoading ? `opacity-70` : ""
+              }`}
             >
-              Creer
+              {isLoading ? `Creation...` : `Creer`}
             </button>
           </div>
           <div className="px-1 flex items-center gap-1">
@@ -173,7 +169,7 @@ export default function SignUpPage() {
               }}
               className="flex justify-center items-center"
             >
-              <span className="text-xs underline text-[var(--primary-color)]">
+              <span className={`text-xs underline text-[var(--primary-color)]`}>
                 Se connecter
               </span>
             </Link>

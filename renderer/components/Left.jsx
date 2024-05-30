@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { HiOutlineHome } from "react-icons/hi2";
-import { RiSettings4Line } from "react-icons/ri";
 import { MdOutlineWorkspaces, MdRestore } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
-import { AiOutlineUser } from "react-icons/ai";
 import { useContext } from "react";
 import { UidContext } from "../context/UidContext";
 import { IoLogOutOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePersistInfos } from "../redux/slices/persistSlice";
 
 const menu = [
   {
@@ -37,6 +37,17 @@ const menu = [
 
 export default function Left() {
   const { currentQuery, path } = useContext(UidContext);
+  const { authToken } = useSelector((state) => state.persistInfos);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    if (authToken) {
+      dispatch(updatePersistInfos({ authToken: "" }));
+    }
+
+    window.location = "/home?path=signIn";
+  };
+
   return (
     <>
       <div className="bg-slate-200 h-full w-full">
@@ -72,7 +83,8 @@ export default function Left() {
           </div>
           <div className="p-5 gap-2 flex flex-col">
             <button
-              className={`flex items-center gap-2 py-2 px-4 bg-red-500 rounded-md hover:outline outline-2 outline-offset-1 hover:outline-red-500`}
+              onClick={handleLogout}
+              className={`flex items-center gap-2 py-2 px-4 bg-slate-500 rounded-sm hover:outline focus:outline outline-2 outline-offset-1 hover:outline-slate-500 focus:outline-slate-500`}
             >
               <i className="text-white">
                 <IoLogOutOutline size={"1.5rem"} />

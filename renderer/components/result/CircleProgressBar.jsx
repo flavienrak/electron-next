@@ -1,4 +1,4 @@
-import { getColor } from "../../lib/getColor";
+import { getColor } from "../../lib/allFunctions";
 
 export default function CircleProgressBar({ percentage, circleWidth }) {
   const radius = 85;
