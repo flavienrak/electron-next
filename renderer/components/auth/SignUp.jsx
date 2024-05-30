@@ -1,17 +1,18 @@
 "use client";
-import styles from "../../styles/signup.module.css";
+
+import Link from "next/link";
 
 import { signUpController } from "../../controllers/authController";
-import { Form, Input, Button, Typography } from "antd";
 import { useContext, useEffect, useState } from "react";
 import { emailRegex } from "../../lib/regex";
 import { UidContext } from "../../context/UidContext";
 import { useRouter } from "next/navigation";
-
-const { Title } = Typography;
+import { MdEmail } from "react-icons/md";
+import { IoMdLock } from "react-icons/io";
+import { BiSolidUser } from "react-icons/bi";
 
 export default function SignUpPage() {
-  const { addMessage } = useContext(UidContext);
+  const { path, addMessage } = useContext(UidContext);
   const { push } = useRouter();
 
   const [nom, setNom] = useState({ value: "", valid: false });
@@ -103,73 +104,81 @@ export default function SignUpPage() {
 
   return (
     <>
-      <div className={styles.container}>
-        <Title level={1}>Formulaire d'inscription</Title>
-        <Form className={styles.form} onSubmitCapture={handleSubmit}>
-          <Form.Item label="Prénom :" name="firstName">
-            <Input
-              type="text"
-              onChange={(e) =>
-                setNom((prev) => ({ ...prev, value: e.target.value }))
-              }
-            />
-          </Form.Item>
-          <Form.Item label="Nom :" name="lastName">
-            <Input
-              type="text"
-              onChange={(e) =>
-                setPrenom((prev) => ({ ...prev, value: e.target.value }))
-              }
-            />
-          </Form.Item>
-          <Form.Item label="Adresse email :" name="email">
-            <Input
-              type="email"
-              onChange={(e) =>
-                setEmail((prev) => ({ ...prev, value: e.target.value }))
-              }
-            />
-          </Form.Item>
-          <Form.Item label="Mot de passe :" name="password">
-            <Input.Password
-              onChange={(e) =>
-                setPassword((prev) => ({ ...prev, value: e.target.value }))
-              }
-            />
-          </Form.Item>
-          <Form.Item
-            label="Confirmation du mot de passe :"
-            name="confirmPassword"
-          >
-            <Input.Password
-              onChange={(e) =>
-                setConfirmPassword((prev) => ({
-                  ...prev,
-                  value: e.target.value,
-                }))
-              }
-            />
-          </Form.Item>
-          <div className={styles.buttons}>
-            <Button
-              className={styles.cancelButton}
-              htmlType="button"
-              onClick={(e) => {
-                e.preventDefault();
-                push("/home");
-              }}
-            >
-              Annuler
-            </Button>
-            <Button
-              htmlType="submit"
-              className={styles.createButton}
-              type="primary"
-            >
-              Créer
-            </Button>
+      <div className="w-full h-full flex justify-center items-center">
+        <form className="py-8 px-10 rounded-md shadow-md flex flex-col gap-5">
+          <div className="flex flex-col">
+            <h1 className="text-3xl font-semibold text-[var(--primary-color)]">
+              Creer un compte
+            </h1>
+            <span className="min-h-1 w-4/5 bg-[var(--primary-color)] rounded-full"></span>
           </div>
-        </Form>
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  placeholder="Nom"
+                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                />
+                <i className="text-slate-400 absolute left-3">
+                  <BiSolidUser size={"1.15rem"} />
+                </i>
+              </div>
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  placeholder="Prenom"
+                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                />
+                <i className="text-slate-400 absolute left-3">
+                  <BiSolidUser size={"1.15rem"} />
+                </i>
+              </div>
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                />
+                <i className="text-slate-400 absolute left-3">
+                  <MdEmail size={"1.15rem"} />
+                </i>
+              </div>
+              <div className="relative flex items-center">
+                <input
+                  type="password"
+                  placeholder="Mot de passe"
+                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                />
+                <i className="text-slate-400 absolute left-3">
+                  <IoMdLock size={"1.15rem"} />
+                </i>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="bg-[var(--primary-color)] text-white py-2 rounded-md"
+            >
+              Creer
+            </button>
+          </div>
+          <div className="px-1 flex items-center gap-1">
+            <p className="text-xs">A deja un compte enregistré ?</p>
+            <Link
+              href={{
+                pathname: path,
+                query: {
+                  path: "signIn",
+                },
+              }}
+              className="flex justify-center items-center"
+            >
+              <span className="text-xs underline text-[var(--primary-color)]">
+                Se connecter
+              </span>
+            </Link>
+          </div>
+        </form>
       </div>
     </>
   );

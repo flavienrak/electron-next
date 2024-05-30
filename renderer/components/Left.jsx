@@ -10,6 +10,7 @@ import { BsStars } from "react-icons/bs";
 import { AiOutlineUser } from "react-icons/ai";
 import { useContext } from "react";
 import { UidContext } from "../context/UidContext";
+import { IoLogOutOutline } from "react-icons/io5";
 
 const menu = [
   {
@@ -70,22 +71,14 @@ export default function Left() {
             ))}
           </div>
           <div className="p-5 gap-2 flex flex-col">
-            <Link
-              href={{
-                pathname: path,
-                query: {
-                  path: "profil",
-                },
-              }}
-              className={`flex items-center gap-2 p-2 transition-all duration-150 ${
-                currentQuery.path === "profil"
-                  ? "bg-slate-100 border-l-2 border-slate-950"
-                  : ""
-              }`}
+            <button
+              className={`flex items-center gap-2 py-2 px-4 bg-red-500 rounded-md hover:outline outline-2 outline-offset-1 hover:outline-red-500`}
             >
-              <AiOutlineUser size={"1.5rem"} />
-              <span className="">Mon profil</span>
-            </Link>
+              <i className="text-white">
+                <IoLogOutOutline size={"1.5rem"} />
+              </i>
+              <span className="text-white">Se deconnecter</span>
+            </button>
           </div>
         </div>
       </div>

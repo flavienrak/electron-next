@@ -21,8 +21,14 @@ import { motion } from "framer-motion";
 import { IoCloseOutline } from "react-icons/io5";
 
 export default function RootLayout() {
-  const { path, currentQuery, widthProgressBar, messages, removeMessage } =
-    useContext(UidContext);
+  const {
+    path,
+    currentQuery,
+    widthProgressBar,
+    messages,
+    removeMessage,
+    isLoadingJWT,
+  } = useContext(UidContext);
   const [title, setTitle] = useState("Landing");
 
   useEffect(() => {
@@ -41,29 +47,35 @@ export default function RootLayout() {
           width={widthProgressBar}
           visible={widthProgressBar > 0}
         />
-        <div className="flex h-full">
-          <div className="w-1/4 h-full">
-            <Left />
-          </div>
-          <div className="w-3/4 h-full px-10">
-            {currentQuery.path === "recent" ? (
-              <Recent />
-            ) : currentQuery.path === "postes" ? (
-              <Postes />
-            ) : currentQuery.path === "nouveau" ? (
-              <Nouveau />
-            ) : currentQuery.path === "profil" ? (
-              <Profil />
-            ) : (
-              // <Accueil />
-              // <SinglePoste />
-              <Result />
-            )}
-          </div>
-        </div>
 
-        {currentQuery?.path === "signIn" && <SignInPage />}
-        {currentQuery?.path === "signUp" && <SignUpPage />}
+        {currentQuery?.path === "signIn" ? (
+          <SignInPage />
+        ) : currentQuery?.path === "signUp" ? (
+          <SignUpPage />
+        ) : (
+          !isLoadingJWT && (
+            <div className="flex h-full">
+              <div className="w-1/4 h-full">
+                <Left />
+              </div>
+              <div className="w-3/4 h-full px-10">
+                {currentQuery.path === "recent" ? (
+                  <Recent />
+                ) : currentQuery.path === "postes" ? (
+                  <Postes />
+                ) : currentQuery.path === "nouveau" ? (
+                  <Nouveau />
+                ) : currentQuery.path === "profil" ? (
+                  <Profil />
+                ) : (
+                  <Accueil />
+                  // <SinglePoste />
+                  // <Result />
+                )}
+              </div>
+            </div>
+          )
+        )}
 
         {!isEmpty(messages) && (
           <>

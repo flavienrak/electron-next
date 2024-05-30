@@ -23,7 +23,7 @@ export default function UidContextProvider({ children }) {
 
   const [widthProgressBar, setWidthProgressBar] = useState(0);
   const [userId, setUserId] = useState(null);
-  const [isLoadingJWT, setIsLoadingJWT] = useState(false);
+  const [isLoadingJWT, setIsLoadingJWT] = useState(true);
   const [isVerifyAuthJWT, setIsVerifyAuthJWT] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
   const [currentQuery, setCurrentQuery] = useState({});
@@ -59,10 +59,7 @@ export default function UidContextProvider({ children }) {
             setUserId(res.decodedToken.id);
           }
         } else {
-          if (
-            !isEmpty(currentQuery?.path) &&
-            !unAuthenticadedPaths.includes(currentQuery?.path)
-          ) {
+          if (!unAuthenticadedPaths.includes(currentQuery?.path)) {
             push("/home?path=signIn");
           }
         }

@@ -1,8 +1,6 @@
 import Link from "next/link";
-import styles from "../../styles/signin.module.css";
 
 import { useContext, useEffect, useState } from "react";
-import { Form, Input, Button, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { UidContext } from "../../context/UidContext";
 import { signInController } from "../../controllers/authController";
@@ -10,8 +8,8 @@ import { emailRegex } from "../../lib/regex";
 import { useDispatch } from "react-redux";
 import { fetchUserInfos } from "../../redux/slices/userSlice";
 import { updatePersistInfos } from "../../redux/slices/persistSlice";
-
-const { Title } = Typography;
+import { MdEmail } from "react-icons/md";
+import { IoMdLock } from "react-icons/io";
 
 export default function SignInPage() {
   const { push } = useRouter();
@@ -73,46 +71,61 @@ export default function SignInPage() {
 
   return (
     <>
-      <div className={styles.container}>
-        <Title level={1}>Sign In</Title>
-        <Form className={styles.form} onSubmitCapture={handleSubmit}>
-          <Form.Item label="Adresse email :" name="email">
-            <Input
-              type="email"
-              onChange={(e) =>
-                setEmail((prev) => ({ ...prev, value: e.target.value }))
-              }
-            />
-          </Form.Item>
-          <Form.Item label="Mot de passe :" name="password">
-            <Input.Password
-              onChange={(e) =>
-                setPassword((prev) => ({ ...prev, value: e.target.value }))
-              }
-            />
-          </Form.Item>
-          <div className={styles.buttons}>
+      <div className="w-full h-full flex justify-center items-center">
+        <form className="py-8 px-10 rounded-md shadow-md flex flex-col gap-5">
+          <div className="flex flex-col">
+            <h1 className="text-3xl font-semibold text-[var(--primary-color)]">
+              Se connecter
+            </h1>
+            <span className="min-h-1 w-2/3 bg-[var(--primary-color)] rounded-full"></span>
+          </div>
+          <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <div className="relative flex items-center">
+                <input
+                  type="text"
+                  placeholder="Email"
+                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                />
+                <i className="text-slate-400 absolute left-3">
+                  <MdEmail size={"1.15rem"} />
+                </i>
+              </div>
+              <div className="relative flex items-center">
+                <input
+                  type="password"
+                  placeholder="Mot de passe"
+                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                />
+                <i className="text-slate-400 absolute left-3">
+                  <IoMdLock size={"1.15rem"} />
+                </i>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="bg-[var(--primary-color)] text-white py-2 rounded-md"
+            >
+              Connexion
+            </button>
+          </div>
+          <div className="px-1 flex items-center gap-1">
+            <p className="text-xs">N'as pas encore de compte ?</p>
             <Link
               href={{
                 pathname: path,
                 query: {
-                  path: "reset",
+                  path: "signUp",
                 },
               }}
+              className="flex justify-center items-center"
             >
-              <Button className={styles.forgetPasswordButton} type="link">
-                Mot de passe oublié?
-              </Button>
+              <span className="text-xs underline text-[var(--primary-color)]">
+                S'inscrire
+              </span>
             </Link>
-            <Button
-              className={styles.signInButton}
-              type="primary"
-              htmlType="submit"
-            >
-              Se connecter
-            </Button>
           </div>
-        </Form>
+        </form>
       </div>
     </>
   );
