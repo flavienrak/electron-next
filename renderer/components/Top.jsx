@@ -1,16 +1,17 @@
 import Link from "next/link";
 
 import { useContext } from "react";
-import { IoIosNotificationsOutline } from "react-icons/io";
 import { UidContext } from "../context/UidContext";
+import { useSelector } from "react-redux";
 
-export default function Top({ label, notif }) {
+export default function Top({ label }) {
   const { path, letter } = useContext(UidContext);
+  const { user } = useSelector((state) => state.user);
   return (
     <>
-      <div className="h-16 flex items-center">
+      <div className="flex items-center min-h-20 h-20 bg-[var(--primary-color)] px-8 rounded-md">
         <div className="flex justify-between items-center w-full">
-          <label className="uppercase">{label}</label>
+          <label className="uppercase text-white">{label}</label>
           <div className="flex gap-2 items-center">
             <Link
               href={{
@@ -19,15 +20,16 @@ export default function Top({ label, notif }) {
                   path: "profil",
                 },
               }}
-              className="flex justify-center items-center"
+              className="flex justify-between items-center gap-4"
             >
-              <i className="p-1 min-w-10 min-h-10 not-italic bg-[var(--primary-color)] rounded-full flex justify-center items-center text-white">
+              {/* <i className="p-1 min-w-10 min-h-10 not-italic bg-white rounded-full flex justify-center items-center text-black uppercase">
                 {letter}
-              </i>
+              </i> */}
+              <p className="flex items-center gap-2 text-white font-bold">
+                <span className="capitalize">{user.prenom}</span>
+                <span className="uppercase">{user.nom}</span>
+              </p>
             </Link>
-            <i className="p-1 min-w-10 min-h-10 not-italic bg-slate-200 rounded-full flex justify-center items-center">
-              <IoIosNotificationsOutline size={"1.5rem"} />
-            </i>
           </div>
         </div>
       </div>

@@ -6,6 +6,13 @@
 html,
 body {
   --primary-color: #e33cc2;
+  --bg-red-5: rgba(239, 68, 68, 0.25);
+  --bg-gradient: radial-gradient(
+      ellipse at bottom,
+      var(--primary-color),
+      transparent
+    ),
+    radial-gradient(ellipse at top, transparent, var(--primary-color));
   margin: 0;
   padding: 0;
   font-size: calc(0.6vh + 0.45vw + 5px);
@@ -24,6 +31,14 @@ body {
 
 .br {
   border: 1px solid rgb(200, 200, 200);
+}
+.bgText {
+  color: transparent;
+  background: var(--bg-gradient);
+  background-clip: text;
+}
+.bgGradient {
+  background: var(--bg-gradient);
 }
 
 textarea {
@@ -63,4 +78,7 @@ div.css-13cymwt-control {
   background: rgb(226, 232, 240);
   border: none;
   height: 2.5rem;
+}
+div.ReactFlagsSelect-module_flagsSelect__2pfa2 {
+  padding-bottom: 0;
 }

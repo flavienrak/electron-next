@@ -1,125 +1,196 @@
-"use client";
+import Liste from "../utils/Liste";
+import Link from "next/link";
 
-import Top from "../Top";
+import { isEmpty } from "../../lib/allFunctions";
+import { MdEdit, MdOutlineWorkOutline } from "react-icons/md";
+import { GrUserExpert } from "react-icons/gr";
+import { LuListEnd } from "react-icons/lu";
+import { FaArrowLeft, FaRegAddressBook, FaRegTrashAlt } from "react-icons/fa";
+import { FiEdit2, FiPhone } from "react-icons/fi";
+import { GoLocation } from "react-icons/go";
+import { BsPersonWorkspace } from "react-icons/bs";
+import { GiBookmark } from "react-icons/gi";
+import { PiStudent } from "react-icons/pi";
+import { BiEqualizer } from "react-icons/bi";
 
-import { HiPhone } from "react-icons/hi2";
-import { MdEmail } from "react-icons/md";
-import { FaLocationDot } from "react-icons/fa6";
-
-export default function SinglePoste() {
+export default function SinglePoste({ poste, path, currentQuery }) {
   return (
     <>
-      <div className="w-full h-full bg-white flex flex-col">
-        <Top label={"Poste"} />
-        <div className="flex gap-8 flex-col">
-          <h1 className="text-4xl uppercase text-center font-semibold">
-            Developpeur Full Stack JS
+      <div className="flex gap-8 flex-col">
+        <div className="relative flex justify-between items-center">
+          <Link
+            href={{
+              pathname: path,
+              query: {
+                path: currentQuery.path,
+              },
+            }}
+            className="w-24"
+          >
+            <i className="text-[var(--primary-color)] cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-100">
+              <FaArrowLeft size={"1.5rem"} />
+            </i>
+          </Link>
+          <h1 className="relative w-max flex items-center justify-center text-4xl uppercase text-center font-semibold text-[var(--primary-color)] py-4">
+            {poste.titre}
+            <span className="absolute h-1 w-10 bg-[var(--primary-color)] rounded-full bottom-0"></span>
           </h1>
-          <div className="flex flex-col gap-4">
-            <div className="flex justify-between items-center">
-              <div className="w-1/3 flex flex-col gap-2">
-                <label className="flex items-center gap-2">
-                  <i>
-                    <HiPhone size={"1rem"} />
-                  </i>
-                  <span>+261 32 72 263 85</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <i>
-                    <MdEmail size={"1.2rem"} />
-                  </i>
-                  <span>flavien.andrisoarak@gmail.com</span>
-                </label>
-                <label className="flex items-center gap-2">
-                  <i>
-                    <FaLocationDot size={"1.2rem"} />
-                  </i>
-                  <span>Soatsihadino Fianarantsoa</span>
-                </label>
-              </div>
+          <Link
+            href={{
+              pathname: path,
+              query: {
+                path: currentQuery.path,
+                poste: currentQuery.poste,
+                edit: Number(currentQuery.poste),
+              },
+            }}
+            className="flex justify-center gap-2 text-[var(--primary-color)] items-center border border-[var(--primary-color)] w-24 h-10 rounded-md"
+          >
+            <span>Editer</span>
+            <i>
+              <FiEdit2 size={"1.2rem"} />
+            </i>
+          </Link>
+        </div>
 
-              <div className="w-1/3">
-                <div className="relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full bg-slate-200">
-                  <span className="text-6xl">M</span>
-                </div>
-              </div>
+        <div className="w-full grid grid-cols-2 gap-x-10 gap-y-4">
+          {/* missions */}
+          <Liste
+            label={"Missions et Responsabilites"}
+            icon={<MdOutlineWorkOutline size={"1rem"} />}
+            array={poste.missions}
+          />
 
-              <div className="w-1/3">
-                <label className="flex items-center gap-2 text-4xl">
-                  RAKOTONDRABE
+          {/* localisation */}
+          {(!isEmpty(poste.pays) || !isEmpty(poste.telephone)) && (
+            <div className="flex flex-col gap-2 bg-slate-200 px-4 py-2 rounded-sm">
+              {!isEmpty(poste.pays) && (
+                <label className="flex items-center gap-2">
+                  <i>
+                    <GoLocation size={"1rem"} />
+                  </i>
+                  <p>
+                    {!isEmpty(poste.pays) && (
+                      <span className="uppercase font-bold">{poste.pays}</span>
+                    )}
+                    {!isEmpty(poste.region) && <span>, {poste.region}</span>}
+                  </p>
                 </label>
-                <label className="flex items-center gap-2 text-2xl pb-2">
-                  Andrisoa Flavien
+              )}
+              {!isEmpty(poste.telephone) && (
+                <label className="flex items-center gap-2">
+                  <i>
+                    <FiPhone size={"1rem"} />
+                  </i>
+                  <p className="font-bold">
+                    <span>+{poste.telephone}</span>
+                  </p>
                 </label>
-                <label className="flex items-center gap-2 border-l border-slate-900 px-2 h-10 bg-slate-200">
-                  Stagiaire
-                </label>
-              </div>
+              )}
             </div>
+          )}
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label htmlFor="description" className="font-semibold">
-                  Description du projet
-                </label>
-                <textarea
-                  rows={4}
-                  type="text"
-                  id="description"
-                  className="bg-slate-200 py-1 px-2 focus:outline-1 focus:outline-slate-300 outline-offset-2"
-                />
-              </div>
-              <div></div>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="responsabilites" className="font-semibold">
-                  Responsabilites
-                </label>
-                <input
-                  type="text"
-                  id="responsabilites"
-                  className="bg-slate-200 py-1 px-2 focus:outline-1 focus:outline-slate-300 outline-offset-2 h-10"
-                />
-              </div>
+          {/* competences */}
+          <Liste
+            label={"Competences requises"}
+            icon={<BsPersonWorkspace size={"1rem"} />}
+            array={poste.competences}
+            feminin={true}
+          />
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="competences" className="font-semibold">
-                  Competences requises
-                </label>
-                <input
-                  type="text"
-                  id="competences"
-                  className="bg-slate-200 py-1 px-2 focus:outline-1 focus:outline-slate-300 outline-offset-2 h-10"
-                />
-              </div>
+          {/* langues */}
+          <Liste
+            label={"Competences linguistiques"}
+            icon={<GiBookmark size={"1rem"} />}
+            array={poste.langues}
+            feminin={true}
+          />
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="diplomes" className="font-semibold">
-                  Diplomes requis
-                </label>
-                <input
-                  type="text"
-                  id="diplomes"
-                  className="bg-slate-200 py-1 px-2 focus:outline-1 focus:outline-slate-300 outline-offset-2 h-10"
-                />
-              </div>
+          {/* experiences */}
+          <Liste
+            label={"Experiences requises"}
+            icon={<FaRegAddressBook size={"1rem"} />}
+            array={poste.experiences}
+            feminin={true}
+          />
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="qualites" className="font-semibold">
-                  Qualites humaines
-                </label>
-                <input
-                  type="text"
-                  id="qualites"
-                  className="bg-slate-200 py-1 px-2 focus:outline-1 focus:outline-slate-300 outline-offset-2 h-10"
-                />
-              </div>
-            </div>
+          {/* diplomes */}
+          <Liste
+            label={"Diplomes requis"}
+            icon={<PiStudent size={"1rem"} />}
+            array={poste.diplomes}
+          />
 
-            <div className="py-2 pr-4">
-              <button className="bg-blue-500 text-white h-10 w-1/2 rounded-sm">
-                <span>Evaluer le poste</span>
+          {/* formations */}
+          <Liste
+            label={"Formations requises"}
+            icon={<GrUserExpert size={"1rem"} />}
+            array={poste.formations}
+            feminin={true}
+          />
+
+          {/* Description */}
+          <div className="flex flex-col gap-2 row-span-2 justify-between">
+            <label
+              htmlFor="description"
+              className="font-semibold flex items-center gap-2"
+            >
+              <i>
+                <LuListEnd size={"1.25rem"} />
+              </i>
+              <span>Description du poste</span>
+            </label>
+            <textarea
+              rows={5}
+              type="text"
+              id="description"
+              value={poste.description}
+              onChange={() => {}}
+              className="bg-slate-200 py-2 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2 flex-1"
+            />
+          </div>
+
+          {/* qualites */}
+          <Liste
+            label={"Qualites requises"}
+            icon={<BiEqualizer size={"1rem"} />}
+            array={poste.qualites}
+            feminin={true}
+          />
+        </div>
+
+        {/* buttons */}
+        <div className="w-full flex justify-end">
+          <div className="flex gap-8 w-1/2 pl-6">
+            {false && (
+              <button
+                className={`bg-[var(--primary-color)] text-white h-10 rounded-sm w-full opacity-80 hover:opacity-100 focus:opacity-100 cursor-pointer transition-opacity duration-100`}
+              >
+                <span>Evaluer</span>
               </button>
-            </div>
+            )}
+            {true && (
+              <>
+                <Link
+                  href={{
+                    pathname: path,
+                    query: {
+                      path: currentQuery.path,
+                      poste: currentQuery.poste,
+                      result: Number(currentQuery.poste),
+                    },
+                  }}
+                  className={`flex justify-center items-center text-[var(--primary-color)] border border-[var(--primary-color)] h-10 rounded-sm w-full opacity-80 hover:opacity-100 focus:opacity-100 cursor-pointer transition-opacity duration-100`}
+                >
+                  <span>Consulter</span>
+                </Link>
+                <button
+                  className={`bg-[var(--primary-color)] text-white h-10 rounded-sm w-full opacity-80 hover:opacity-100 focus:opacity-100 cursor-pointer transition-opacity duration-100`}
+                >
+                  <span>Reevaluer</span>
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

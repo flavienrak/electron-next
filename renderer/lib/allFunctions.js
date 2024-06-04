@@ -33,7 +33,26 @@ export function getColor(value) {
   return `rgb(${color.r}, ${color.g}, ${color.b})`;
 }
 
-export function validatePhoneNumber(value) {
-  const regex = /^\+?[1-9]\d{1,14}$/;
-  return regex.test(value);
+export function isEmpty(value) {
+  return (
+    value === undefined ||
+    value === null ||
+    value === NaN ||
+    (typeof value === "object" && Object.keys(value).length === 0) ||
+    (typeof value === "string" && value?.trim().length === 0)
+  );
+}
+
+export function isValidNumber(value) {
+  return !isNaN(value) && isFinite(value);
+}
+
+export function isValidPhoneNumber(value) {
+  let phoneNumber = value.trim();
+  if (phoneNumber.startsWith("+")) {
+    phoneNumber = phoneNumber.substring(1);
+  }
+
+  const phoneRegex = /^[0-9]{8,14}$/;
+  return phoneRegex.test(phoneNumber);
 }

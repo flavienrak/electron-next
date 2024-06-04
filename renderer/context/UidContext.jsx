@@ -7,10 +7,13 @@ import { unAuthenticadedPaths } from "../lib/paths";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, createContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isEmpty } from "../lib/isEmpty";
+import { isEmpty } from "../lib/allFunctions";
 import { verifyTokenController } from "../controllers/authController";
 import { updatePersistInfos } from "../redux/slices/persistSlice";
 import { fetchUserInfos } from "../redux/slices/userSlice";
+import { getUserController } from "../controllers/userController";
+import { getAllPostesController } from "../controllers/posteController";
+import { fetchPostesInfos } from "../redux/slices/postesSlice";
 
 export const UidContext = createContext();
 
@@ -26,11 +29,13 @@ export default function UidContextProvider({ children }) {
   const [widthProgressBar, setWidthProgressBar] = useState(0);
   const [userId, setUserId] = useState(null);
   const [isLoadingJWT, setIsLoadingJWT] = useState(null);
+  const [fetchPostes, setFetchPostes] = useState(null);
   const [isVerifyAuthJWT, setIsVerifyAuthJWT] = useState(false);
   const [isLogout, setIsLogout] = useState(false);
   const [letter, setLetter] = useState("");
   const [currentQuery, setCurrentQuery] = useState({});
   const [messages, setMessages] = useState([]);
+  const [showLogout, setShowLogout] = useState(false);
 
   // update current query
   useEffect(() => {
@@ -60,7 +65,6 @@ export default function UidContextProvider({ children }) {
             setIsLogout(true);
           } else {
             setUserId(res.decodedToken.id);
-            dispatch(fetchUserInfos({ user: res.user }));
             setIsLoadingJWT(false);
           }
         } else {
@@ -71,6 +75,25 @@ export default function UidContextProvider({ children }) {
       })();
     }
   }, [isVerifyAuthJWT]);
+
+  useEffect(() => {
+    if (userId) {
+      (async () => {
+        let res = await getUserController(userId);
+        if (res?.user) {
+          dispatch(fetchUserInfos({ user: res.user }));
+        }
+
+        setFetchPostes(true);
+        res = await getAllPostesController(userId);
+        setFetchPostes(false);
+
+        if (res?.postes) {
+          dispatch(fetchPostesInfos({ postes: res.postes }));
+        }
+      })();
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (isLogout) {
@@ -99,7 +122,6 @@ export default function UidContextProvider({ children }) {
 
   useEffect(() => {
     if (user?.prenom) {
-      console.log(user.prenom);
       setLetter(user.prenom?.charAt(0));
     }
   }, [user?.prenom]);
@@ -136,6 +158,10 @@ export default function UidContextProvider({ children }) {
     }
   };
 
+  const loginOut = (value) => {
+    setShowLogout(value);
+  };
+
   if (typeof window !== "undefined")
     return (
       <UidContext.Provider
@@ -147,6 +173,9 @@ export default function UidContextProvider({ children }) {
           widthProgressBar,
           messages,
           letter,
+          fetchPostes,
+          showLogout,
+          loginOut,
           addMessage,
           removeMessage,
           setLoadingBar,

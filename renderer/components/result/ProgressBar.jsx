@@ -12,7 +12,7 @@ export default function ProgressBar({ width }) {
           transition: "width 0.5s",
           background: `${bg}`,
         }}
-        className="relative rounded-full h-4"
+        className="relative rounded-full h-[15px]"
       >
         <span
           style={{
