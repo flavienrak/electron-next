@@ -5,7 +5,7 @@
 *,
 html,
 body {
-  --primary-color: #e33cc2;
+  --primary-color: #149be9;
   --bg-red-5: rgba(239, 68, 68, 0.25);
   --bg-gradient: radial-gradient(
       ellipse at bottom,
@@ -13,6 +13,13 @@ body {
       transparent
     ),
     radial-gradient(ellipse at top, transparent, var(--primary-color));
+
+  --green-theme: #1dc85c;
+  --purple-theme: #5a3bd8;
+  --blue-theme: #149be9;
+  --yellow-theme: #e0b638;
+  --red-theme: #ea4f4f;
+
   margin: 0;
   padding: 0;
   font-size: calc(0.6vh + 0.45vw + 5px);
@@ -22,6 +29,22 @@ body {
   text-overflow: ellipsis;
   text-decoration: inherit;
   font-family: sans-serif;
+}
+
+.purpleTheme * {
+  --primary-color: var(--purple-theme);
+}
+.yellowTheme * {
+  --primary-color: var(--yellow-theme);
+}
+.redTheme * {
+  --primary-color: var(--red-theme);
+}
+.greenTheme * {
+  --primary-color: var(--green-theme);
+}
+.blueTheme * {
+  --primary-color: var(--blue-theme);
 }
 
 *::selection {

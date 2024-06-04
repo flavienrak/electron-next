@@ -33,13 +33,16 @@ export default function Accueil() {
                       path: "profil",
                     },
                   }}
-                  className="flex justify-center items-center bgGradient w-max h-12 rounded-full px-8 font-semibold text-white"
+                  className="flex justify-center items-center bgGradient w-max h-12 rounded-full gap-2 px-6 font-semibold text-white"
                 >
-                  Commencer
+                  <span>Commencer</span>
+                  <i>
+                    <FaCaretRight size={"1.5rem"} />
+                  </i>
                 </Link>
               </div>
             </div>
-            <div className="flex gap-4 justify-center border-t border-b border-slate-300 py-4">
+            <div className="flex gap-4 justify-center border-t border-b border-slate-300 bg-slate-200 py-4">
               <div className="w-1/2 flex justify-center items-center">
                 <label className="font-bold">Compatibilite generale</label>
               </div>

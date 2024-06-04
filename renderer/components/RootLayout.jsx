@@ -10,6 +10,7 @@ import Recent from "./recent/Recent";
 import Postes from "./postes/Postes";
 import Nouveau from "./postes/Nouveau";
 import Profil from "./profil/Profil";
+import Theme from "./theme/Theme";
 
 import { isEmpty } from "../lib/allFunctions";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -31,7 +32,7 @@ export default function RootLayout() {
     loginOut,
   } = useContext(UidContext);
 
-  const { authToken } = useSelector((state) => state.persistInfos);
+  const { authToken, theme } = useSelector((state) => state.persistInfos);
   const ref = useRef(null);
   const dispatch = useDispatch();
 
@@ -66,7 +67,21 @@ export default function RootLayout() {
   // }, [showLogout]);
 
   return (
-    <div>
+    <div
+      className={`${
+        theme === "green"
+          ? "greenTheme"
+          : theme === "yellow"
+          ? "yellowTheme"
+          : theme === "red"
+          ? "redTheme"
+          : theme === "green"
+          ? "greenTheme"
+          : theme === "purple"
+          ? "purpleTheme"
+          : "blueTheme"
+      }`}
+    >
       <Head>
         <title>{title}</title>
       </Head>
@@ -95,6 +110,8 @@ export default function RootLayout() {
                   <Nouveau />
                 ) : currentQuery.path === "profil" ? (
                   <Profil />
+                ) : currentQuery.path === "theme" ? (
+                  <Theme />
                 ) : (
                   <Accueil />
                 )}
