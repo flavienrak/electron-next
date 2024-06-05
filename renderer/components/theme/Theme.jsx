@@ -23,7 +23,7 @@ export default function Theme() {
                   onClick={() =>
                     dispatch(updatePersistInfos({ theme: "purple" }))
                   }
-                  className={`flex justify-center items-center min-h-24 min-w-24 bg-[var(--purple-theme)] rounded-full border-slate-200 ${
+                  className={`flex justify-center items-center min-h-20 min-w-20 bg-[var(--purple-theme)] rounded-full border-slate-200 ${
                     theme === "purple" ? "border-8" : "cursor-pointer"
                   }`}
                 ></span>
@@ -33,7 +33,7 @@ export default function Theme() {
                   onClick={() =>
                     dispatch(updatePersistInfos({ theme: "yellow" }))
                   }
-                  className={`flex justify-center items-center min-h-24 min-w-24 bg-[var(--yellow-theme)] rounded-full border-slate-200 ${
+                  className={`flex justify-center items-center min-h-20 min-w-20 bg-[var(--yellow-theme)] rounded-full border-slate-200 ${
                     theme === "yellow" ? "border-8" : "cursor-pointer"
                   }`}
                 ></span>
@@ -41,7 +41,7 @@ export default function Theme() {
               <label htmlFor="">
                 <span
                   onClick={() => dispatch(updatePersistInfos({ theme: "red" }))}
-                  className={`flex justify-center items-center min-h-24 min-w-24 bg-[var(--red-theme)] rounded-full border-slate-200 ${
+                  className={`flex justify-center items-center min-h-20 min-w-20 bg-[var(--red-theme)] rounded-full border-slate-200 ${
                     theme === "red" ? "border-8" : "cursor-pointer"
                   }`}
                 ></span>
@@ -51,7 +51,7 @@ export default function Theme() {
                   onClick={() =>
                     dispatch(updatePersistInfos({ theme: "green" }))
                   }
-                  className={`flex justify-center items-center min-h-24 min-w-24 bg-[var(--green-theme)] rounded-full border-slate-200 ${
+                  className={`flex justify-center items-center min-h-20 min-w-20 bg-[var(--green-theme)] rounded-full border-slate-200 ${
                     theme === "green" ? "border-8" : "cursor-pointer"
                   }`}
                 ></span>
@@ -61,7 +61,7 @@ export default function Theme() {
                   onClick={() =>
                     dispatch(updatePersistInfos({ theme: "blue" }))
                   }
-                  className={`flex justify-center items-center min-h-24 min-w-24 bg-[var(--blue-theme)] rounded-full border-slate-200 ${
+                  className={`flex justify-center items-center min-h-20 min-w-20 bg-[var(--blue-theme)] rounded-full border-slate-200 ${
                     theme === "blue" ? "border-8" : "cursor-pointer"
                   }`}
                 ></span>

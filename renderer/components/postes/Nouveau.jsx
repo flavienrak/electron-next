@@ -31,6 +31,7 @@ import { createPosteController } from "../../controllers/posteController";
 import { addPosteInfos } from "../../redux/slices/postesSlice";
 import { useRouter } from "next/navigation";
 import { UidContext } from "../../context/UidContext";
+import Link from "next/link";
 
 const links = [
   {
@@ -756,12 +757,17 @@ export default function Nouveau() {
             {/* buttons */}
             <div className="w-full flex justify-end">
               <div className="flex gap-10 w-1/2 pl-6">
-                <button
-                  type="reset"
-                  className="text-red-500 border border-red-500 hover:bg-[var(--bg-red-5)] h-10 rounded-sm w-full"
+                <Link
+                  href={{
+                    pathname: path,
+                    query: {
+                      path: "postes",
+                    },
+                  }}
+                  className="flex justify-center items-center text-red-500 border border-red-500 hover:bg-[var(--bg-red-5)] h-10 rounded-sm w-full"
                 >
                   <span>Annuler</span>
-                </button>
+                </Link>
                 <button
                   type="submit"
                   disabled={!titre.valid || isEmpty(missions.value)}

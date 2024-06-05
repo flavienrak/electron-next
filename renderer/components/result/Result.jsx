@@ -1,14 +1,14 @@
-"use client";
-
 import Link from "next/link";
 import CircleProgressBar from "./CircleProgressBar";
 import ProgressBar from "./ProgressBar";
 
-import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
-export default function Result({ poste, path, currentQuery }) {
-  const [percentage, setPercentage] = useState(75);
+export default function Result({ poste, path, currentQuery, actualMatch }) {
+  const percentage = (value) => {
+    return Math.round(value * 100);
+  };
+
   return (
     <>
       <div className="flex gap-8 flex-col">
@@ -19,6 +19,7 @@ export default function Result({ poste, path, currentQuery }) {
               query: {
                 path: currentQuery.path,
                 poste: currentQuery.poste,
+                view: currentQuery.poste,
               },
             }}
           >
@@ -33,9 +34,9 @@ export default function Result({ poste, path, currentQuery }) {
           <i></i>
         </div>{" "}
         <div className="flex flex-col gap-14">
-          <h2 className="font-semibold text-slate-500 py-2 flex border-b border-slate-500">{`< General >`}</h2>
+          <h2 className="font-semibold text-slate-500 py-2 flex border-b border-slate-500">{`< Compatibilite general >`}</h2>
           <div className="flex flex-col gap-4 w-full">
-            <ProgressBar width={90} />
+            <ProgressBar width={percentage(actualMatch.globalScore)} />
           </div>
         </div>
         <div className="flex flex-col gap-6">
@@ -43,19 +44,31 @@ export default function Result({ poste, path, currentQuery }) {
           <div className={`relative flex justify-between`}>
             <div className="flex items-center flex-col gap-4">
               <label className="font-semibold text-2xl">Competences</label>
-              <CircleProgressBar percentage={percentage} circleWidth={"200"} />
+              <CircleProgressBar
+                percentage={percentage(actualMatch.competences)}
+                circleWidth={"200"}
+              />
             </div>
             <div className="flex items-center flex-col gap-4">
               <label className="font-semibold text-2xl">Diplomes</label>
-              <CircleProgressBar percentage={percentage} circleWidth={"200"} />
+              <CircleProgressBar
+                percentage={percentage(actualMatch.diplomes)}
+                circleWidth={"200"}
+              />
             </div>
             <div className="flex items-center flex-col gap-4">
               <label className="font-semibold text-2xl">Experiences</label>
-              <CircleProgressBar percentage={percentage} circleWidth={"200"} />
+              <CircleProgressBar
+                percentage={percentage(actualMatch.experiences)}
+                circleWidth={"200"}
+              />
             </div>
             <div className="flex items-center flex-col gap-4">
               <label className="font-semibold text-2xl">Qualites</label>
-              <CircleProgressBar percentage={percentage} circleWidth={"200"} />
+              <CircleProgressBar
+                percentage={percentage(actualMatch.qualites)}
+                circleWidth={"200"}
+              />
             </div>
           </div>
         </div>

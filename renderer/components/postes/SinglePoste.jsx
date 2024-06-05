@@ -1,19 +1,57 @@
+"use client";
+
 import Liste from "../utils/Liste";
 import Link from "next/link";
+import qs from "query-string";
 
 import { isEmpty } from "../../lib/allFunctions";
-import { MdEdit, MdOutlineWorkOutline } from "react-icons/md";
+import { MdOutlineWorkOutline } from "react-icons/md";
 import { GrUserExpert } from "react-icons/gr";
 import { LuListEnd } from "react-icons/lu";
-import { FaArrowLeft, FaRegAddressBook, FaRegTrashAlt } from "react-icons/fa";
+import { FaArrowLeft, FaRegAddressBook } from "react-icons/fa";
 import { FiEdit2, FiPhone } from "react-icons/fi";
 import { GoLocation } from "react-icons/go";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { GiBookmark } from "react-icons/gi";
 import { PiStudent } from "react-icons/pi";
 import { BiEqualizer } from "react-icons/bi";
+import { useContext } from "react";
+import { UidContext } from "../../context/UidContext";
+import { matchPosteController } from "../../controllers/matchController";
+import { useDispatch } from "react-redux";
+import { updateMatchInfos } from "../../redux/slices/matchSlice";
+import { useRouter } from "next/navigation";
 
-export default function SinglePoste({ poste, path, currentQuery }) {
+export default function SinglePoste({
+  poste,
+  path,
+  currentQuery,
+  actualMatch,
+}) {
+  const { userId } = useContext(UidContext);
+  const { push } = useRouter();
+  const dispatch = useDispatch();
+
+  const handleMatch = async () => {
+    const res = await matchPosteController({ userId, posteId: poste.id });
+
+    if (res?.match) {
+      dispatch(updateMatchInfos({ match: res.match }));
+      const url = qs.stringifyUrl(
+        {
+          url: path,
+          query: {
+            path: currentQuery.path,
+            poste: currentQuery.poste,
+            result: currentQuery.poste,
+          },
+        },
+        { skipNull: true }
+      );
+      push(url);
+    }
+  };
+
   return (
     <>
       <div className="flex gap-8 flex-col">
@@ -41,7 +79,7 @@ export default function SinglePoste({ poste, path, currentQuery }) {
               query: {
                 path: currentQuery.path,
                 poste: currentQuery.poste,
-                edit: Number(currentQuery.poste),
+                edit: currentQuery.poste,
               },
             }}
             className="flex justify-center gap-2 text-[var(--primary-color)] items-center border border-[var(--primary-color)] w-24 h-10 rounded-md"
@@ -162,14 +200,14 @@ export default function SinglePoste({ poste, path, currentQuery }) {
         {/* buttons */}
         <div className="w-full flex justify-end">
           <div className="flex gap-8 w-1/2 pl-6">
-            {false && (
+            {isEmpty(actualMatch) ? (
               <button
+                onClick={handleMatch}
                 className={`bg-[var(--primary-color)] text-white h-10 rounded-sm w-full opacity-80 hover:opacity-100 focus:opacity-100 cursor-pointer transition-opacity duration-100`}
               >
                 <span>Evaluer</span>
               </button>
-            )}
-            {true && (
+            ) : (
               <>
                 <Link
                   href={{
@@ -177,7 +215,7 @@ export default function SinglePoste({ poste, path, currentQuery }) {
                     query: {
                       path: currentQuery.path,
                       poste: currentQuery.poste,
-                      result: Number(currentQuery.poste),
+                      result: currentQuery.poste,
                     },
                   }}
                   className={`flex justify-center items-center text-[var(--primary-color)] border border-[var(--primary-color)] h-10 rounded-sm w-full opacity-80 hover:opacity-100 focus:opacity-100 cursor-pointer transition-opacity duration-100`}
@@ -185,6 +223,7 @@ export default function SinglePoste({ poste, path, currentQuery }) {
                   <span>Consulter</span>
                 </Link>
                 <button
+                  onClick={handleMatch}
                   className={`bg-[var(--primary-color)] text-white h-10 rounded-sm w-full opacity-80 hover:opacity-100 focus:opacity-100 cursor-pointer transition-opacity duration-100`}
                 >
                   <span>Reevaluer</span>

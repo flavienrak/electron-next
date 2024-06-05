@@ -5,6 +5,7 @@ import Link from "next/link";
 import Result from "../result/Result";
 import EditPoste from "../postes/EditPoste";
 import SinglePoste from "../postes/SinglePoste";
+import qs from "query-string";
 
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
@@ -12,26 +13,48 @@ import { useSelector } from "react-redux";
 import { isEmpty, isValidNumber } from "../../lib/allFunctions";
 import { useContext, useEffect, useState } from "react";
 import { UidContext } from "../../context/UidContext";
+import { useRouter } from "next/navigation";
 
 const perPage = 8;
 
 export default function Postes() {
-  const { path, currentQuery } = useContext(UidContext);
+  const { path, currentQuery, userId } = useContext(UidContext);
   const { postes } = useSelector((state) => state.postes);
+  const { match } = useSelector((state) => state.match);
+  const { push } = useRouter();
+
   const pages = Array.from(
     { length: Math.ceil(postes?.length / perPage) },
     (_, index) => index + 1
   );
+
   const [actualPage, setActualPage] = useState(1);
   const [singlePoste, setSinglePoste] = useState({});
 
+  const [actualMatch, setActualMatch] = useState(
+    match?.find(
+      (item) => item.userId == userId && item.posteId == currentQuery.poste
+    ) || {}
+  );
+
   useEffect(() => {
     if (isValidNumber(Number(currentQuery?.poste))) {
-      setSinglePoste(postes[Number(currentQuery.poste)]);
+      setSinglePoste(postes?.find((item) => item.id == currentQuery.poste));
+      setActualMatch(() =>
+        match?.find(
+          (item) => item.userId == userId && item.posteId == currentQuery.poste
+        )
+      );
     } else {
+      const url = qs.stringifyUrl(
+        { url: path, query: { path: "postes" } },
+        { skipNull: true }
+      );
+      push(url);
       setSinglePoste({});
+      setActualMatch({});
     }
-  }, [currentQuery?.poste, postes]);
+  }, [currentQuery?.poste, postes, match]);
 
   return (
     <>
@@ -44,25 +67,29 @@ export default function Postes() {
                 {!isEmpty(singlePoste) && !isEmpty(currentQuery?.edit) ? (
                   <>
                     <EditPoste
-                      poste={singlePoste}
                       path={path}
+                      poste={singlePoste}
                       currentQuery={currentQuery}
                     />
                   </>
                 ) : !isEmpty(singlePoste) && !isEmpty(currentQuery?.view) ? (
                   <>
                     <SinglePoste
-                      poste={singlePoste}
                       path={path}
+                      poste={singlePoste}
                       currentQuery={currentQuery}
+                      actualMatch={actualMatch}
                     />
                   </>
-                ) : !isEmpty(singlePoste) && !isEmpty(currentQuery?.result) ? (
+                ) : !isEmpty(singlePoste) &&
+                  !isEmpty(currentQuery?.result) &&
+                  !isEmpty(actualMatch) ? (
                   <>
                     <Result
-                      poste={singlePoste}
                       path={path}
+                      poste={singlePoste}
                       currentQuery={currentQuery}
+                      actualMatch={actualMatch}
                     />
                   </>
                 ) : (
@@ -177,8 +204,8 @@ export default function Postes() {
                                           pathname: path,
                                           query: {
                                             path: currentQuery.path,
-                                            poste: index,
-                                            view: index,
+                                            poste: item.id,
+                                            view: item.id,
                                           },
                                         }}
                                         className="bg-slate-200 rounded-full px-3 py-2 flex items-center gap-1 justify-center"
