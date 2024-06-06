@@ -6,18 +6,48 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePersistInfos } from "../../redux/slices/persistSlice";
 
 export default function Theme() {
-  const { theme } = useSelector((state) => state.persistInfos);
+  const { theme, mode } = useSelector((state) => state.persistInfos);
   const dispatch = useDispatch();
+  console.log(mode);
   return (
     <>
-      <div className="w-full h-full bg-white flex flex-col">
+      <div className="w-full h-full flex flex-col bg-[var(--primary-color)] rounded-md">
         <Top label={"Theme"} />
-        <div className="flex-1 bg-slate-100 p-8 rounded-md h-full overflow-auto flex items-center justify-center">
-          <div className="flex flex-col h-full w-full gap-6">
+        <div className="bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto flex flex-col gap-8">
+          <div className="flex flex-col w-full gap-6">
+            <h1 className="text-4xl text-[var(--primary-color)] uppercase">
+              Choisir un mode
+            </h1>
+            <div className="flex justify-between rounded-md w-full gap-8">
+              <label
+                onClick={() => dispatch(updatePersistInfos({ mode: "light" }))}
+                className={`flex items-center gap-4 bg-[var(--white)] p-4 w-1/2 shadow-sm border-slate-200 rounded-md ${
+                  mode === "light" ? "border-8" : "cursor-poinnter"
+                }`}
+              >
+                <span
+                  className={`flex justify-center items-center min-h-10 min-w-10 bg-white border-slate-200 rounded-full border-4`}
+                ></span>
+                <span className="text-2xl">Clair</span>
+              </label>
+              <label
+                onClick={() => dispatch(updatePersistInfos({ mode: "dark" }))}
+                className={`flex items-center gap-4 bg-[var(--dark)] p-4 w-1/2 shadow-sm border-slate-200 rounded-md ${
+                  mode === "dark" ? "border-8" : "cursor-poinnter"
+                }`}
+              >
+                <span
+                  className={`flex justify-center items-center min-h-10 min-w-10 bg-[var(--dark)] border-slate-200 rounded-full border-4`}
+                ></span>
+                <span className="text-2xl text-white">Sombre</span>
+              </label>
+            </div>
+          </div>
+          <div className="flex flex-col w-full gap-6">
             <h1 className="text-4xl text-[var(--primary-color)] uppercase">
               Choisir un theme
             </h1>
-            <div className="flex justify-between bg-white p-8 rounded-md shadow-sm w-full">
+            <div className="flex justify-between bg-[var(--bg)] p-8 rounded-md shadow-sm w-full">
               <label htmlFor="">
                 <span
                   onClick={() =>

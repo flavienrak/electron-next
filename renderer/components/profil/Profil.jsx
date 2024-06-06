@@ -33,17 +33,17 @@ export default function Profil() {
 
   return (
     <>
-      <div className="w-full h-full bg-white flex flex-col">
+      <div className="w-full h-full bg-[var(--primary-color)] rounded-md flex flex-col">
         <Top label={"Profil"} />
         {isEditProfil ? (
           <EditProfil setIsEditProfil={setIsEditProfil} />
         ) : (
-          <div className="bg-slate-100 p-8 rounded-md overflow-auto">
+          <div className="bg-[var(--bg-1)] p-8 rounded-md overflow-auto">
             <div className="flex flex-1 gap-10 flex-col">
               <div className="flex justify-between w-full items-center gap-8">
                 {/* contacts */}
                 <div className="w-1/3 flex flex-col gap-2">
-                  <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2 text-[var(--cont)]">
                     <i>
                       <HiPhone size={"1rem"} />
                     </i>
@@ -53,13 +53,13 @@ export default function Profil() {
                       <span className="text-slate-500 text-sm">{`< Aucun >`}</span>
                     )}
                   </label>
-                  <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2 text-[var(--cont)]">
                     <i>
                       <MdEmail size={"1.2rem"} />
                     </i>
                     <span>{user.email}</span>
                   </label>
-                  <label className="flex items-center gap-2">
+                  <label className="flex items-center gap-2 text-[var(--cont)]">
                     <i>
                       <FaLocationDot size={"1.2rem"} />
                     </i>
@@ -78,31 +78,24 @@ export default function Profil() {
 
                 {/* profil */}
                 <div className="w-1/3 flex justify-center items-center">
-                  <div className="relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full bg-[var(--primary-color)]">
-                    <span className="text-6xl uppercase text-white">
+                  <div className="relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full bg-[var(--primary-color)] border-2 border-[var(--bg)]">
+                    <span className="text-6xl uppercase text-[var(--white)]">
                       {letter}
                     </span>
-                    <label
-                      htmlFor="file"
-                      className="absolute bottom-1 right-1 min-w-8 min-h-8 flex justify-center items-center bg-white rounded-full cursor-pointer text-[var(--primary-color)]"
-                    >
-                      <IoCamera size={"1.5rem"} />
-                    </label>
-                    <input id="file" type="file" className="hidden" />
                   </div>
                 </div>
 
                 {/* infos */}
                 <div className="w-1/3">
-                  <label className="flex items-center gap-2 text-4xl uppercase text-slate-950">
+                  <label className="flex items-center gap-2 text-4xl uppercase text-[var(--cont)]">
                     {user.nom}
                   </label>
-                  <label className="flex items-center gap-2 text-2xl pb-2 capitalize text-slate-950">
+                  <label className="flex items-center gap-2 text-2xl pb-2 capitalize text-[var(--cont)]">
                     {user.prenom}
                   </label>
                   {!isEmpty(user?.postes) ? (
                     <>
-                      <label className="flex items-center gap-1 border-l-2 border-slate-900 px-2 h-10 bg-slate-200">
+                      <label className="flex items-center gap-1 border-l-2 border-slate-900 px-2 h-10 bg-[var(--bg-1)]">
                         {user.postes?.map((item, index) => (
                           <span
                             key={item}
@@ -115,7 +108,7 @@ export default function Profil() {
                       </label>
                     </>
                   ) : (
-                    <label className="flex items-center gap-2 px-2 h-10 bg-slate-200 text-slate-500 text-sm">
+                    <label className="flex items-center gap-2 px-2 h-10 bg-[var(--bg)] text-slate-500 text-sm">
                       {`< Aucun poste >`}
                     </label>
                   )}
@@ -173,7 +166,7 @@ export default function Profil() {
 
                 {/* biographie */}
                 <div className="gap-2 flex flex-col justify-between row-span-2 col-span-2">
-                  <label className="font-semibold flex gap-2 items-center">
+                  <label className="font-semibold flex gap-2 items-center text-[var(--cont)]">
                     <i>
                       <TbMoodEdit size={"1.25rem"} />
                     </i>
@@ -184,7 +177,7 @@ export default function Profil() {
                     rows={5}
                     placeholder="Biographie"
                     defaultValue={user.biographie}
-                    className="flex items-center bg-slate-200 py-2 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2 h-full"
+                    className="flex items-center bg-[var(--bg)] py-2 px-4 focus:outline-none rounded-sm h-full text-[var(--cont)]"
                   />
                 </div>
               </div>

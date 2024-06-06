@@ -20,7 +20,10 @@ export default function InputMulti({
 }) {
   return (
     <div className="w-full gap-2 flex flex-col justify-between">
-      <label htmlFor={id} className="font-semibold flex gap-2 items-center">
+      <label
+        htmlFor={id}
+        className="font-semibold flex gap-2 items-center text-[var(--cont)]"
+      >
         <i>{icon}</i>
         {label}
       </label>
@@ -29,12 +32,12 @@ export default function InputMulti({
           {array.map((item, index) => (
             <p
               key={item}
-              className="bg-slate-200 py-1 pl-4 pr-2 rounded-full flex items-center gap-2"
+              className="bg-[var(--bg)] py-1 pl-4 pr-2 rounded-full flex items-center gap-2"
             >
-              <span className="text-xs text-slate-600">{item}</span>
+              <span className="text-xs text-[var(--cont)]">{item}</span>
               <i
                 onClick={() => onDelete(index)}
-                className="text-slate-950 cursor-pointer"
+                className="text-[var(--cont)] cursor-pointer"
               >
                 <IoCloseOutline size={"1rem"} />
               </i>
@@ -49,11 +52,11 @@ export default function InputMulti({
           value={value}
           onChange={onChange}
           onKeyDown={onEnter}
-          className="flex items-center bg-slate-200 h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2 flex-1"
+          className="flex items-center bg-[var(--bg)] h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2 flex-1 text-[var(--cont)]"
         />
         <i
           onClick={onAdd}
-          className="flex justify-center items-center bg-slate-300 h-10 px-2 rounded-sm cursor-pointer"
+          className="flex justify-center items-center bg-[var(--bg)] h-10 px-2 rounded-sm cursor-pointer text-[var(--cont)]"
         >
           <FiPlus size={"1rem"} />
         </i>

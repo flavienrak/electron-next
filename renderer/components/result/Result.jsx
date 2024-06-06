@@ -34,37 +34,45 @@ export default function Result({ poste, path, currentQuery, actualMatch }) {
           <i></i>
         </div>{" "}
         <div className="flex flex-col gap-14">
-          <h2 className="font-semibold text-slate-500 py-2 flex border-b border-slate-500">{`< Compatibilite general >`}</h2>
+          <h2 className="font-semibold text-[var(--cont)] py-2 flex border-b border-[var(--cont)]">{`< Compatibilite general >`}</h2>
           <div className="flex flex-col gap-4 w-full">
             <ProgressBar width={percentage(actualMatch.globalScore)} />
           </div>
         </div>
         <div className="flex flex-col gap-6">
-          <h2 className="font-semibold text-slate-500 py-2 flex border-b border-slate-500">{`< Details >`}</h2>
+          <h2 className="font-semibold text-[var(--cont)] py-2 flex border-b border-[var(--cont)]">{`< Details >`}</h2>
           <div className={`relative flex justify-between`}>
             <div className="flex items-center flex-col gap-4">
-              <label className="font-semibold text-2xl">Competences</label>
+              <label className="font-semibold text-2xl text-[var(--cont)]">
+                Competences
+              </label>
               <CircleProgressBar
                 percentage={percentage(actualMatch.competences)}
                 circleWidth={"200"}
               />
             </div>
             <div className="flex items-center flex-col gap-4">
-              <label className="font-semibold text-2xl">Diplomes</label>
+              <label className="font-semibold text-2xl text-[var(--cont)]">
+                Diplomes
+              </label>
               <CircleProgressBar
                 percentage={percentage(actualMatch.diplomes)}
                 circleWidth={"200"}
               />
             </div>
             <div className="flex items-center flex-col gap-4">
-              <label className="font-semibold text-2xl">Experiences</label>
+              <label className="font-semibold text-2xl text-[var(--cont)]">
+                Experiences
+              </label>
               <CircleProgressBar
                 percentage={percentage(actualMatch.experiences)}
                 circleWidth={"200"}
               />
             </div>
             <div className="flex items-center flex-col gap-4">
-              <label className="font-semibold text-2xl">Qualites</label>
+              <label className="font-semibold text-2xl text-[var(--cont)]">
+                Qualites
+              </label>
               <CircleProgressBar
                 percentage={percentage(actualMatch.qualites)}
                 circleWidth={"200"}

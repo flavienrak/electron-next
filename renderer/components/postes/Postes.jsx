@@ -58,9 +58,9 @@ export default function Postes() {
 
   return (
     <>
-      <div className="w-full h-full bg-white flex flex-col">
+      <div className="w-full h-full bg-[var(--primary-color)] rounded-md flex flex-col">
         <Top label={"Postes"} />
-        <div className="flex-1 bg-slate-100 p-8 rounded-md overflow-auto">
+        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md overflow-auto">
           <div className="flex gap-10 flex-col">
             {!isEmpty(postes) ? (
               <>
@@ -121,22 +121,22 @@ export default function Postes() {
                     )}
 
                     <div className="w-full">
-                      <table className="w-full border border-slate-200 rounded-sm">
+                      <table className="w-full border border-[var(--bg)] rounded-sm">
                         <thead className="">
-                          <tr className="bg-slate-200 h-14">
-                            <th className="w-1/5 font-semibold text-left px-4">
+                          <tr className="bg-[var(--bg)] h-14">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
                               Titre
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
                               Competences
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
                               Diplomes
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
                               Experiences
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
                               Action
                             </th>
                           </tr>
@@ -150,17 +150,17 @@ export default function Postes() {
                               return (
                                 <tr
                                   key={item.id}
-                                  className={`border-b border-slate-200 ${
-                                    index % 2 !== 0 ? "bg-slate-200" : ""
+                                  className={`border-b border-[var(--bg)] ${
+                                    index % 2 !== 0 ? "bg-[var(--bg)]" : ""
                                   }`}
                                 >
                                   <td className="h-12 w-1/5 leading-4 px-4">
-                                    <label className="text-sm font-semibold">
+                                    <label className="text-sm font-semibold text-[var(--cont)]">
                                       {item.titre}
                                     </label>
                                   </td>
                                   <td className="h-10 w-1/5 leading-4 px-4">
-                                    <label>
+                                    <label className="text-[var(--cont)]">
                                       {!isEmpty(item.competences) &&
                                         item.competences.map((itm, i) => (
                                           <span key={itm} className="text-sm">
@@ -173,7 +173,7 @@ export default function Postes() {
                                     </label>
                                   </td>
                                   <td className="h-10 w-1/5 leading-4 px-4">
-                                    <label>
+                                    <label className="text-[var(--cont)]">
                                       {!isEmpty(item.diplomes) &&
                                         item.diplomes.map((itm, i) => (
                                           <span key={itm} className="text-sm">
@@ -185,7 +185,7 @@ export default function Postes() {
                                     </label>
                                   </td>
                                   <td className="h-10 w-1/5 px-4">
-                                    <label>
+                                    <label className="text-[var(--cont)]">
                                       {!isEmpty(item.experiences) &&
                                         item.experiences.map((itm, i) => (
                                           <span key={itm} className="text-sm">
@@ -208,7 +208,7 @@ export default function Postes() {
                                             view: item.id,
                                           },
                                         }}
-                                        className="bg-slate-200 rounded-full px-3 py-2 flex items-center gap-1 justify-center"
+                                        className="bg-[var(--bg)] rounded-full px-3 py-2 flex items-center gap-1 justify-center text-[var(--cont)]"
                                       >
                                         <span className="text-xs font-semibold">
                                           Details

@@ -43,8 +43,8 @@ export default function Left() {
 
   return (
     <>
-      <div className="bg-white h-full w-full">
-        <div className="bg-slate-100 h-full w-full flex flex-col rounded-md">
+      <div className="h-full w-full">
+        <div className="bg-[var(--bg-1)] h-full w-full flex flex-col rounded-md">
           <Link
             href={{
               pathname: path,
@@ -52,12 +52,12 @@ export default function Left() {
                 path: "accueil",
               },
             }}
-            className="min-h-20 h-20 font-semibold text-2xl text-[var(--primary-color)] justify-center px-4 flex items-center gap-4"
+            className="min-h-20 h-20 text-2xl font-semibold text-[var(--primary-color)] justify-center px-4 flex items-center gap-4"
           >
             <span className="flex items-center justify-center bg-[var(--primary-color)] px-4 text-white rounded-sm">
               JBM
             </span>{" "}
-            <>JOB MATCHER</>
+            <span className="text-2xl hidden md:block">JOB MATCHER</span>
           </Link>
           <div className="w-full flex-1 bg-[var(--primary-color)] rounded-md p-8">
             <div className="relative flex flex-col justify-between h-full">
@@ -73,24 +73,24 @@ export default function Left() {
                     }}
                     className={`flex items-center gap-2 p-2 transition-all duration-100 rounded-sm ${
                       currentQuery.path === item.path
-                        ? "bg-white text-[var(--primary-color)]"
+                        ? "bg-[var(--bg-1)] text-[var(--primary-color)]"
                         : "text-white"
                     }`}
                   >
                     {item.icon}
-                    <span>{item.label}</span>
+                    <span className="hidden md:block">{item.label}</span>
                   </Link>
                 ))}
               </div>
               <div className="gap-2 flex flex-col">
                 <button
                   onClick={() => loginOut(true)}
-                  className={`flex items-center gap-2 py-2 px-4 border border-white text-white rounded-sm`}
+                  className={`flex items-center gap-2 p-2 border border-white text-white rounded-sm`}
                 >
                   <i>
                     <IoLogOutOutline size={"1.5rem"} />
                   </i>
-                  <span>Se deconnecter</span>
+                  <span className="hidden md:block">Se deconnecter</span>
                 </button>
               </div>
             </div>

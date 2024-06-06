@@ -101,9 +101,9 @@ export default function SinglePoste({
 
           {/* localisation */}
           {(!isEmpty(poste.pays) || !isEmpty(poste.telephone)) && (
-            <div className="flex flex-col gap-2 bg-slate-200 px-4 py-2 rounded-sm">
+            <div className="flex flex-col gap-2 bg-[var(--bg)] px-4 py-2 rounded-sm">
               {!isEmpty(poste.pays) && (
-                <label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 text-[var(--cont)]">
                   <i>
                     <GoLocation size={"1rem"} />
                   </i>
@@ -116,7 +116,7 @@ export default function SinglePoste({
                 </label>
               )}
               {!isEmpty(poste.telephone) && (
-                <label className="flex items-center gap-2">
+                <label className="flex items-center gap-2 text-[var(--cont)]">
                   <i>
                     <FiPhone size={"1rem"} />
                   </i>
@@ -171,7 +171,7 @@ export default function SinglePoste({
           <div className="flex flex-col gap-2 row-span-2 justify-between">
             <label
               htmlFor="description"
-              className="font-semibold flex items-center gap-2"
+              className="font-semibold flex items-center gap-2 text-[var(--cont)]"
             >
               <i>
                 <LuListEnd size={"1.25rem"} />
@@ -182,9 +182,9 @@ export default function SinglePoste({
               rows={5}
               type="text"
               id="description"
-              value={poste.description}
-              onChange={() => {}}
-              className="bg-slate-200 py-2 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2 flex-1"
+              readOnly
+              defaultValue={poste.description}
+              className="bg-[var(--bg)] py-2 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2 flex-1 text-[var(--cont)]"
             />
           </div>
 

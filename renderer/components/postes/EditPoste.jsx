@@ -560,7 +560,7 @@ export default function EditPoste({ poste }) {
               <div className="flex flex-col gap-2 justify-between">
                 <label
                   htmlFor="pays"
-                  className="font-semibold flex gap-2 items-center"
+                  className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                 >
                   <i>
                     <BsGlobeAmericas size={"1rem"} />
@@ -582,7 +582,7 @@ export default function EditPoste({ poste }) {
               <div className="flex flex-col gap-2 justify-between">
                 <label
                   htmlFor="region"
-                  className="font-semibold flex gap-2 items-center"
+                  className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                 >
                   <i>
                     <GoLocation size={"1.15rem"} />
@@ -616,7 +616,7 @@ export default function EditPoste({ poste }) {
               <div className="flex flex-col gap-2 row-span-2 col-span-2">
                 <label
                   htmlFor="description"
-                  className="font-semibold flex items-center gap-2"
+                  className="font-semibold flex items-center gap-2 text-[var(--cont)]"
                 >
                   <i>
                     <LuListEnd size={"1.25rem"} />
@@ -635,7 +635,7 @@ export default function EditPoste({ poste }) {
                       value: e.target.value,
                     }))
                   }
-                  className="bg-slate-200 py-2 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2"
+                  className="bg-[var(--bg)] py-2 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2 text-[var(--cont)]"
                 />
               </div>
 
@@ -643,7 +643,7 @@ export default function EditPoste({ poste }) {
               <div className="gap-2 flex flex-col justify-between">
                 <label
                   htmlFor="telephone"
-                  className="font-semibold flex gap-2 items-center"
+                  className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                 >
                   <i>
                     <BsTelephone size={"1rem"} />
@@ -666,7 +666,7 @@ export default function EditPoste({ poste }) {
               <div className="flex flex-col gap-2 justify-between">
                 <label
                   htmlFor="region"
-                  className="font-semibold flex gap-2 items-center"
+                  className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                 >
                   <i>
                     <MdOutlineVilla size={"1.25rem"} />
@@ -871,9 +871,9 @@ export default function EditPoste({ poste }) {
             <motion.div
               initial={{ y: -15 }}
               animate={{ y: 0 }}
-              className="p-6 rounded-md bg-white flex justify-center items-center flex-col gap-4 w-80 transition-all duration-100 ease-linear"
+              className="p-6 rounded-md bg-[var(--bg-1)] flex justify-center items-center flex-col gap-4 w-80 transition-all duration-100 ease-linear border border-[var(--cont)]"
             >
-              <h1 className="uppercase text-center text-slate-700">
+              <h1 className="uppercase text-center text-[var(--cont)]">
                 Supprimer le poste ?
               </h1>
               <div className="flex gap-4">
@@ -885,7 +885,7 @@ export default function EditPoste({ poste }) {
                 </button>
                 <button
                   onClick={handleRemove}
-                  className="uppercase w-20 h-8 bg-green-500 rounded-sm text-white"
+                  className="uppercase w-20 h-8 bg-green-500 rounded-sm text-[var(--white)]"
                 >
                   Oui
                 </button>

@@ -27,6 +27,7 @@ import { editProfilController } from "../../controllers/userController";
 import { updateUserInfos } from "../../redux/slices/userSlice";
 import { FaRegAddressBook } from "react-icons/fa";
 import { getName, getCode } from "country-list";
+import Image from "next/image";
 
 const links = [
   {
@@ -46,6 +47,8 @@ export default function EditProfil({ setIsEditProfil }) {
   const [active, setActive] = useState(links[0].path);
   const [nom, setNom] = useState({ value: user.nom, valid: false });
   const [prenom, setPrenom] = useState({ value: user.prenom, valid: false });
+  const [file, setFile] = useState(null);
+  const [image, setImage] = useState("");
   const [telephone, setTelephone] = useState({
     value: user.telephone || "",
     valid: false,
@@ -188,9 +191,6 @@ export default function EditProfil({ setIsEditProfil }) {
         valid: true,
         value: getName(paysCode.value),
       }));
-      if (!canSubmit) {
-        setCanSubmit(true);
-      }
     } else {
       setPaysCode((prev) => ({ ...prev, valid: false }));
     }
@@ -203,9 +203,6 @@ export default function EditProfil({ setIsEditProfil }) {
         valid: true,
         value: states.find((item) => item.value === regionCode.value)?.label,
       }));
-      if (!canSubmit) {
-        setCanSubmit(true);
-      }
     } else {
       setRegionCode((prev) => ({ ...prev, valid: false }));
       setRegionName((prev) => ({
@@ -305,6 +302,19 @@ export default function EditProfil({ setIsEditProfil }) {
     actualQualite.value,
     actualLangue.value,
   ]);
+
+  useEffect(() => {
+    if (file) {
+      const newUrl = URL.createObjectURL(file);
+      setImage(newUrl);
+      if (!canSubmit) {
+        setCanSubmit(true);
+      }
+      return () => {
+        URL.revokeObjectURL(newUrl);
+      };
+    }
+  }, [file]);
 
   const handleAdd = (actual) => {
     if (!canSubmit) {
@@ -491,7 +501,7 @@ export default function EditProfil({ setIsEditProfil }) {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-1 gap-10 flex-col bg-slate-100 p-8 rounded-md overflow-auto max-h-full"
+        className="flex flex-1 gap-10 flex-col bg-[var(--bg-1)] p-8 rounded-md overflow-auto max-h-full"
       >
         <div className="flex justify-between gap-10">
           {links.map((item) => (
@@ -514,17 +524,39 @@ export default function EditProfil({ setIsEditProfil }) {
             <div className="flex justify-between w-full items-center gap-10">
               {/* profil */}
               <div className="w-1/4 flex justify-center items-center h-full">
-                <div className="relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full bg-[var(--primary-color)]">
-                  <span className="text-6xl uppercase text-white">
-                    {nom.value?.charAt(0)}
-                  </span>
-                  <label
+                <div
+                  className={`relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full border-2 border-[var(--bg)] ${
+                    !isEmpty(image) ? "" : "bg-[var(--primary-color)]"
+                  } `}
+                >
+                  {!isEmpty(image) ? (
+                    <div className="relative h-36 w-36 rounded-full">
+                      <Image
+                        src={image}
+                        fill
+                        alt=""
+                        objectFit="cover"
+                        className="rounded-full"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-6xl uppercase text-[var(--white)]">
+                      {nom.value?.charAt(0)}
+                    </span>
+                  )}
+                  {/* <label
                     htmlFor="file"
                     className="absolute bottom-1 right-1 min-w-8 min-h-8 flex justify-center items-center bg-white rounded-full cursor-pointer text-[var(--primary-color)]"
                   >
                     <IoCamera size={"1.5rem"} />
                   </label>
-                  <input id="file" type="file" className="hidden" />
+                  <input
+                    id="file"
+                    type="file"
+                    accept=".png,.jpg,.jpeg"
+                    onChange={(e) => setFile(e.target.files[0])}
+                    className="hidden"
+                  /> */}
                 </div>
               </div>
 
@@ -534,7 +566,7 @@ export default function EditProfil({ setIsEditProfil }) {
                 <div className="w-full gap-2 flex flex-col">
                   <label
                     htmlFor="nom"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <AiOutlineUser size={"1rem"} />
@@ -547,7 +579,7 @@ export default function EditProfil({ setIsEditProfil }) {
                     onChange={(e) =>
                       setNom((prev) => ({ ...prev, value: e.target.value }))
                     }
-                    className="flex items-center bg-slate-200 h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
+                    className="flex items-center bg-[var(--bg)] h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2 text-[var(--cont)]"
                   />
                 </div>
 
@@ -555,7 +587,7 @@ export default function EditProfil({ setIsEditProfil }) {
                 <div className="w-full gap-2 flex flex-col">
                   <label
                     htmlFor="prenom"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <AiOutlineUser size={"1rem"} />
@@ -568,7 +600,7 @@ export default function EditProfil({ setIsEditProfil }) {
                     onChange={(e) =>
                       setPrenom((prev) => ({ ...prev, value: e.target.value }))
                     }
-                    className="flex items-center bg-slate-200 h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
+                    className="flex items-center bg-[var(--bg)] h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2 text-[var(--cont)]"
                   />
                 </div>
               </div>
@@ -579,7 +611,7 @@ export default function EditProfil({ setIsEditProfil }) {
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="pays"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <BsGlobeAmericas size={"1rem"} />
@@ -601,7 +633,7 @@ export default function EditProfil({ setIsEditProfil }) {
                 <div className="w-full gap-2 flex flex-col">
                   <label
                     htmlFor="telephone"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <BsTelephone size={"1rem"} />
@@ -627,7 +659,7 @@ export default function EditProfil({ setIsEditProfil }) {
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="region"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <GoLocation size={"1.15rem"} />
@@ -651,8 +683,9 @@ export default function EditProfil({ setIsEditProfil }) {
                   ) : (
                     <input
                       id="region"
+                      readOnly
                       placeholder="Region"
-                      className="flex items-center bg-slate-200 h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
+                      className="flex items-center bg-[var(--bg)] h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
                     />
                   )}
                 </div>
@@ -661,7 +694,7 @@ export default function EditProfil({ setIsEditProfil }) {
                 <div className="flex flex-col gap-2">
                   <label
                     htmlFor="region"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <MdOutlineVilla size={"1.25rem"} />
@@ -680,8 +713,9 @@ export default function EditProfil({ setIsEditProfil }) {
                   ) : (
                     <input
                       id="region"
+                      readOnly
                       placeholder="Ville"
-                      className="flex items-center bg-slate-200 h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
+                      className="flex items-center bg-[var(--bg)] h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
                     />
                   )}
                 </div>
@@ -691,7 +725,7 @@ export default function EditProfil({ setIsEditProfil }) {
             <div className="gap-2 flex flex-col justify-between row-span-2">
               <label
                 htmlFor="biographie"
-                className="font-semibold flex gap-2 items-center"
+                className="font-semibold flex gap-2 items-center text-[var(--cont)]"
               >
                 <i>
                   <TbMoodEdit size={"1.25rem"} />
@@ -709,7 +743,7 @@ export default function EditProfil({ setIsEditProfil }) {
                     value: e.target.value,
                   }))
                 }
-                className="flex items-center bg-slate-200 py-2 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2 h-full"
+                className="flex items-center bg-[var(--bg)] py-2 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2 h-full text-[var(--cont)]"
               />
             </div>
           </div>

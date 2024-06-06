@@ -434,10 +434,9 @@ export default function Nouveau() {
 
   return (
     <>
-      <div className="w-full h-full bg-white flex flex-col">
+      <div className="w-full h-full bg-[var(--primary-color)] rounded-md flex flex-col">
         <Top label={"Nouveau"} />
-
-        <div className="flex-1 bg-slate-100 p-8 rounded-md h-full overflow-auto">
+        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto">
           <form onSubmit={handleSubmit} className="flex gap-8 flex-col">
             <div className="flex justify-between gap-10">
               {links.map((item) => (
@@ -446,7 +445,7 @@ export default function Nouveau() {
                   onClick={() => setActive(item.path)}
                   className={`flex items-center justify-center whitespace-nowrap w-1/2 h-10 uppercase rounded-sm border border-[var(--primary-color)] cursor-pointer ${
                     active === item.path
-                      ? "bg-[var(--primary-color)] text-white"
+                      ? "bg-[var(--primary-color)] text-[var(--white)]"
                       : "text-[var(--primary-color)]"
                   }`}
                 >
@@ -461,7 +460,7 @@ export default function Nouveau() {
                 <div className="flex flex-col gap-2 justify-between col-span-2">
                   <label
                     htmlFor="titre"
-                    className="font-semibold flex items-center gap-2"
+                    className="font-semibold flex items-center gap-2 text-[var(--cont)]"
                   >
                     <i>
                       <AiOutlineNodeExpand size={"1.25rem"} />
@@ -476,7 +475,7 @@ export default function Nouveau() {
                     onChange={(e) =>
                       setTitre((prev) => ({ ...prev, value: e.target.value }))
                     }
-                    className="bg-slate-200 py-1 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2 h-10"
+                    className="bg-[var(--bg)] py-1 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2 h-10 text-[var(--cont)]"
                   />
                 </div>
 
@@ -484,7 +483,7 @@ export default function Nouveau() {
                 <div className="flex flex-col gap-2 justify-between">
                   <label
                     htmlFor="pays"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <BsGlobeAmericas size={"1rem"} />
@@ -506,7 +505,7 @@ export default function Nouveau() {
                 <div className="flex flex-col gap-2 justify-between">
                   <label
                     htmlFor="region"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <GoLocation size={"1.15rem"} />
@@ -529,7 +528,7 @@ export default function Nouveau() {
                     <input
                       id="region"
                       placeholder="Region"
-                      className="flex items-center bg-slate-200 h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
+                      className="flex items-center bg-[var(--bg)] h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
                     />
                   )}
                 </div>
@@ -559,7 +558,7 @@ export default function Nouveau() {
                 <div className="gap-2 flex flex-col justify-between">
                   <label
                     htmlFor="telephone"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <BsTelephone size={"1rem"} />
@@ -582,7 +581,7 @@ export default function Nouveau() {
                 <div className="flex flex-col gap-2 justify-between">
                   <label
                     htmlFor="region"
-                    className="font-semibold flex gap-2 items-center"
+                    className="font-semibold flex gap-2 items-center text-[var(--cont)]"
                   >
                     <i>
                       <MdOutlineVilla size={"1.25rem"} />
@@ -602,7 +601,7 @@ export default function Nouveau() {
                     <input
                       id="region"
                       placeholder="Ville"
-                      className="flex items-center bg-slate-200 h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
+                      className="flex items-center bg-[var(--bg)] h-10 px-4 rounded-sm focus:outline-slate-300 focus:outline-offset-2"
                     />
                   )}
                 </div>
@@ -611,7 +610,7 @@ export default function Nouveau() {
                 <div className="flex flex-col gap-2 row-span-2 col-span-4">
                   <label
                     htmlFor="description"
-                    className="font-semibold flex items-center gap-2"
+                    className="font-semibold flex items-center gap-2 text-[var(--cont)]"
                   >
                     <i>
                       <LuListEnd size={"1.25rem"} />
@@ -630,7 +629,7 @@ export default function Nouveau() {
                         value: e.target.value,
                       }))
                     }
-                    className="bg-slate-200 py-2 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2"
+                    className="bg-[var(--bg)] py-2 px-4 focus:outline-1 focus:outline-slate-300 outline-offset-2 text-[var(--cont)]"
                   />
                 </div>
               </div>

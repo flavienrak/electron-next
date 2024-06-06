@@ -7,7 +7,7 @@ import { AiOutlineRight } from "react-icons/ai";
 export default function Recent() {
   return (
     <>
-      <div className="w-full h-full bg-white flex flex-col">
+      <div className="w-full h-full flex flex-col">
         <Top label={"Recent"} />
         <div className="flex gap-4 flex-1 items-center flex-col justify-between">
           <div className="w-full flex-1 flex flex-col gap-4">

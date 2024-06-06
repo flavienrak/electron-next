@@ -72,10 +72,10 @@ export default function SignInPage() {
 
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full h-full flex justify-center items-center bg-[var(--bg)]">
         <form
           onSubmit={handleSubmit}
-          className="py-8 px-10 rounded-md shadow-md flex flex-col gap-5"
+          className="py-8 px-10 rounded-md shadow-md flex flex-col gap-5 bg-[var(--bg-1)]"
         >
           <div className="flex flex-col">
             <h1 className="text-3xl font-semibold text-[var(--primary-color)]">
@@ -92,9 +92,9 @@ export default function SignInPage() {
                   onChange={(e) =>
                     setEmail((prev) => ({ ...prev, value: e.target.value }))
                   }
-                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)]"
                 />
-                <i className="text-slate-400 absolute left-3">
+                <i className="text-[var(--cont)] absolute left-3">
                   <MdEmail size={"1.15rem"} />
                 </i>
               </div>
@@ -105,9 +105,9 @@ export default function SignInPage() {
                   onChange={(e) =>
                     setPassword((prev) => ({ ...prev, value: e.target.value }))
                   }
-                  className="bg-slate-200 py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500"
+                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)]"
                 />
-                <i className="text-slate-400 absolute left-3">
+                <i className="text-[var(--cont)] absolute left-3">
                   <IoMdLock size={"1.15rem"} />
                 </i>
               </div>
@@ -122,7 +122,9 @@ export default function SignInPage() {
             </button>
           </div>
           <div className="px-1 flex items-center gap-1">
-            <p className="text-xs">N'as pas encore de compte ?</p>
+            <p className="text-xs text-[var(--cont)]">
+              N'as pas encore de compte ?
+            </p>
             <Link
               href={{
                 pathname: path,

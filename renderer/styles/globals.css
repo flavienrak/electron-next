@@ -20,6 +20,14 @@ body {
   --yellow-theme: #e0b638;
   --red-theme: #ea4f4f;
 
+  --dark: #151225;
+  --white: #ffffff;
+
+  --bg: #f1f5f9;
+  --bg-1: #ffffff;
+
+  --cont: #151225;
+
   margin: 0;
   padding: 0;
   font-size: calc(0.6vh + 0.45vw + 5px);
@@ -45,6 +53,18 @@ body {
 }
 .blueTheme * {
   --primary-color: var(--blue-theme);
+}
+
+.darkMode * {
+  --bg: #151221;
+  --bg-1: #241e38;
+  --cont: #ffffff;
+}
+
+.lightMode * {
+  --bg: #f0eef6;
+  --bg-1: #ffffff;
+  --cont: #151225;
 }
 
 *::selection {
@@ -75,7 +95,7 @@ textarea {
 }
 
 #rfs-btn {
-  background: rgb(226, 232, 240);
+  background: var(--bg);
   border: none;
 }
 
@@ -85,20 +105,25 @@ textarea {
 .react-tel-input input.form-control {
   height: 100%;
   width: 100%;
-  background: rgb(226, 232, 240);
+  background: var(--bg);
   border: none;
+  color: var(--cont);
+}
+/* .ReactFlagsSelect-module_label__27pw9, */
+div.css-1dimb5e-singleValue {
+  color: var(--cont);
 }
 .react-tel-input div.flag-dropdown {
-  background: rgb(226, 232, 240);
+  background: var(--bg);
   border: none;
   border-radius: 0;
 }
 .react-tel-input div.flag-dropdown:hover {
-  background: rgb(100, 116, 139);
+  background: var(--bg-1);
 }
 
 div.css-13cymwt-control {
-  background: rgb(226, 232, 240);
+  background: var(--bg);
   border: none;
   height: 2.5rem;
 }

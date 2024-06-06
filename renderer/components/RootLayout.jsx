@@ -32,7 +32,7 @@ export default function RootLayout() {
     loginOut,
   } = useContext(UidContext);
 
-  const { authToken, theme } = useSelector((state) => state.persistInfos);
+  const { authToken, theme, mode } = useSelector((state) => state.persistInfos);
   const ref = useRef(null);
   const dispatch = useDispatch();
 
@@ -82,95 +82,100 @@ export default function RootLayout() {
           : "blueTheme"
       }`}
     >
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <div className="h-screen">
-        <TopLoadingBar
-          width={widthProgressBar}
-          visible={widthProgressBar > 0}
-        />
+      <div className={`${mode === "dark" ? "darkMode" : "lightMode"}`}>
+        <Head>
+          <title>{title}</title>
+        </Head>
+        <div className="h-screen">
+          <TopLoadingBar
+            width={widthProgressBar}
+            visible={widthProgressBar > 0}
+          />
 
-        {currentQuery?.path === "signIn" ? (
-          <SignInPage />
-        ) : currentQuery?.path === "signUp" ? (
-          <SignUpPage />
-        ) : (
-          isLoadingJWT === false && (
-            <div className="flex h-full p-4 gap-4">
-              <div className="w-1/4 h-full">
-                <Left />
+          {currentQuery?.path === "signIn" ? (
+            <SignInPage />
+          ) : currentQuery?.path === "signUp" ? (
+            <SignUpPage />
+          ) : (
+            isLoadingJWT === false && (
+              <div className="flex h-full p-4 gap-4 bg-[var(--bg)]">
+                <div className="w-max h-full">
+                  <Left />
+                </div>
+                <div className="h-full flex-1">
+                  {
+                    // currentQuery.path === "recent" ? (
+                    //   <Recent />
+                    // ) :
+                    currentQuery.path === "postes" ? (
+                      <Postes />
+                    ) : currentQuery.path === "nouveau" ? (
+                      <Nouveau />
+                    ) : currentQuery.path === "profil" ? (
+                      <Profil />
+                    ) : currentQuery.path === "theme" ? (
+                      <Theme />
+                    ) : (
+                      <Accueil />
+                    )
+                  }
+                </div>
               </div>
-              <div className="w-3/4 h-full">
-                {currentQuery.path === "recent" ? (
-                  <Recent />
-                ) : currentQuery.path === "postes" ? (
-                  <Postes />
-                ) : currentQuery.path === "nouveau" ? (
-                  <Nouveau />
-                ) : currentQuery.path === "profil" ? (
-                  <Profil />
-                ) : currentQuery.path === "theme" ? (
-                  <Theme />
-                ) : (
-                  <Accueil />
-                )}
-              </div>
-            </div>
-          )
-        )}
+            )
+          )}
 
-        {showLogout && (
-          <div className="fixed top-0 left-0 h-full w-full flex justify-center items-center bg-slate-900 bg-opacity-25">
-            <motion.div
-              ref={ref}
-              initial={{ y: -15 }}
-              animate={{ y: 0 }}
-              className="p-6 rounded-md bg-white flex justify-center items-center flex-col gap-4 w-80 transition-all duration-100 ease-linear"
-            >
-              <h1 className="uppercase text-center text-slate-700">
-                Voulez vous vraiment vous deconnecter ?
-              </h1>
-              <div className="flex gap-4">
-                <button
-                  onClick={() => loginOut(false)}
-                  className="uppercase w-20 h-8 rounded-sm text-red-500 border border-red-500 hover:bg-[var(--bg-red-5)]"
-                >
-                  Non
-                </button>
-                <button
-                  onClick={handleLogout}
-                  className="uppercase w-20 h-8 bg-green-500 rounded-sm text-white"
-                >
-                  Oui
-                </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-
-        {!isEmpty(messages) && (
-          <>
-            {messages.map((mes, index) => (
+          {showLogout && (
+            <div className="fixed top-0 left-0 h-full w-full flex justify-center items-center bg-slate-900 bg-opacity-25">
               <motion.div
-                key={index}
-                initial={{ x: -25 }}
-                animate={{ x: 0 }}
-                className={`fixed bottom-2 left-2 text-white rounded-md pl-4 pr-8 py-2 transition-all duration-150 ease-linear shadow-md max-w-64 whitespace-wrap overflow-hidden ${
-                  mes.type === "error" ? "bg-red-500" : "bg-green-500"
-                }`}
+                ref={ref}
+                initial={{ y: -15 }}
+                animate={{ y: 0 }}
+                className="p-6 rounded-md bg-[var(--bg-1)] flex justify-center items-center flex-col gap-4 w-80 transition-all duration-100 ease-linear border border-[var(--cont)]"
               >
-                <i
-                  onClick={() => removeMessage(index)}
-                  className={`absolute top-2 right-2 cursor-pointer hover:bg-slate-50 rounded-sm text-white`}
-                >
-                  <IoCloseOutline size={"1rem"} />
-                </i>
-                {mes.value}
+                <h1 className="uppercase text-center text-[var(--cont)]">
+                  Voulez vous vraiment vous deconnecter ?
+                </h1>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => loginOut(false)}
+                    className="uppercase w-20 h-8 rounded-sm text-red-500 border border-red-500 hover:bg-[var(--bg-red-5)]"
+                  >
+                    Non
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="uppercase w-20 h-8 bg-green-500 rounded-sm text-white"
+                  >
+                    Oui
+                  </button>
+                </div>
               </motion.div>
-            ))}
-          </>
-        )}
+            </div>
+          )}
+
+          {!isEmpty(messages) && (
+            <>
+              {messages.map((mes, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ x: -25 }}
+                  animate={{ x: 0 }}
+                  className={`fixed bottom-2 left-2 text-white rounded-md pl-4 pr-8 py-2 transition-all duration-150 ease-linear shadow-md max-w-64 whitespace-wrap overflow-hidden ${
+                    mes.type === "error" ? "bg-red-500" : "bg-green-500"
+                  }`}
+                >
+                  <i
+                    onClick={() => removeMessage(index)}
+                    className={`absolute top-2 right-2 cursor-pointer hover:bg-slate-50 rounded-sm text-white`}
+                  >
+                    <IoCloseOutline size={"1rem"} />
+                  </i>
+                  {mes.value}
+                </motion.div>
+              ))}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

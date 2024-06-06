@@ -9,7 +9,7 @@ export default function Top({ label }) {
   const { user } = useSelector((state) => state.user);
   return (
     <>
-      <div className="flex items-center min-h-20 h-20 bg-[var(--primary-color)] px-8 rounded-md">
+      <div className="flex items-center min-h-20 h-20 px-8 rounded-md">
         <div className="flex justify-between items-center w-full">
           <label className="uppercase text-white">{label}</label>
           <div className="flex gap-2 items-center">
