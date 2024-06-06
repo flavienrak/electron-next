@@ -95,7 +95,7 @@ export default function Profil() {
                   </label>
                   {!isEmpty(user?.postes) ? (
                     <>
-                      <label className="flex items-center gap-1 border-l-2 border-slate-900 px-2 h-10 bg-[var(--bg-1)]">
+                      <label className="flex items-center gap-1 border-l-2 border-[var(--bg)] bg-[var(--bg)] px-2 h-10 text-[var(--cont)]">
                         {user.postes?.map((item, index) => (
                           <span
                             key={item}

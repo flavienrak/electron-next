@@ -39,9 +39,23 @@ export default function RootLayout() {
   const [title, setTitle] = useState("Accueil");
 
   useEffect(() => {
-    setTitle((prev) => {
-      return prev;
-    });
+    if (currentQuery?.path) {
+      setTitle((prev) => {
+        let newState = prev;
+        if (currentQuery.path === "postes") {
+          newState = "Postes";
+        } else if (currentQuery.path === "nouveau") {
+          newState = "Nouveau";
+        } else if (currentQuery.path === "profil") {
+          newState = "Profil";
+        } else if (currentQuery.path === "theme") {
+          newState = "Theme";
+        } else {
+          newState = "Accueil";
+        }
+        return newState;
+      });
+    }
   }, [currentQuery?.path]);
 
   const handleLogout = async () => {
