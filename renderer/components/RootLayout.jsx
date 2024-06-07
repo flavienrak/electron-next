@@ -42,7 +42,7 @@ export default function RootLayout() {
     value: ip || "",
     valid: !isEmpty(ip),
   });
-  const [typeServerAdress, setTypeServerAdress] = useState(false);
+  const [typeServerAdress, setTypeServerAdress] = useState(isEmpty(ip));
 
   useEffect(() => {
     if (currentQuery?.path) {
@@ -150,7 +150,7 @@ export default function RootLayout() {
                 ref={ref}
                 initial={{ y: -15 }}
                 animate={{ y: 0 }}
-                className="p-6 rounded-md bg-[var(--bg-1)] flex justify-center items-center flex-col gap-4 w-80 transition-all duration-100 ease-linear border border-[var(--cont)]"
+                className="p-6 rounded-md bg-[var(--bg-1)] flex justify-center items-center flex-col gap-4 w-80 transition-all duration-100 ease-linear border border-slate-500"
               >
                 <h1 className="uppercase text-center text-[var(--cont)]">
                   Voulez vous vraiment vous deconnecter ?
@@ -180,7 +180,7 @@ export default function RootLayout() {
                 initial={{ y: -15 }}
                 animate={{ y: 0 }}
                 onSubmit={handleSubmitIP}
-                className="p-8 rounded-md bg-[var(--bg-1)] w-80 flex justify-center flex-col gap-4 transition-all duration-100 ease-linear border border-[var(--cont)]"
+                className="p-8 rounded-md bg-[var(--bg-1)] w-80 flex justify-center flex-col gap-4 transition-all duration-100 ease-linear border border-slate-500"
               >
                 <h1 className="uppercase text-[var(--cont)]">
                   Adresse IP du serveur
