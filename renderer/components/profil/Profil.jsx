@@ -33,12 +33,12 @@ export default function Profil() {
 
   return (
     <>
-      <div className="w-full h-full bg-[var(--primary-color)] rounded-md flex flex-col">
+      <div className="w-full h-full rounded-md flex flex-col gap-4">
         <Top label={"Profil"} />
         {isEditProfil ? (
           <EditProfil setIsEditProfil={setIsEditProfil} />
         ) : (
-          <div className="bg-[var(--bg-1)] p-8 rounded-md overflow-auto">
+          <div className="bg-[var(--bg-1)] p-8 rounded-md overflow-auto scr">
             <div className="flex flex-1 gap-10 flex-col">
               <div className="flex justify-between w-full items-center gap-8">
                 {/* contacts */}
@@ -78,7 +78,7 @@ export default function Profil() {
 
                 {/* profil */}
                 <div className="w-1/3 flex justify-center items-center">
-                  <div className="relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full bg-[var(--primary-color)] border-2 border-[var(--bg)]">
+                  <div className="relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full bgGradient border border-[var(--primary-color)]">
                     <span className="text-6xl uppercase text-[var(--white)]">
                       {letter}
                     </span>
@@ -187,7 +187,7 @@ export default function Profil() {
                 <div className="w-1/2 pl-6">
                   <button
                     onClick={() => setIsEditProfil(true)}
-                    className="bg-[var(--primary-color)] text-white h-10 w-full rounded-sm flex items-center justify-center gap-2"
+                    className="bgGradient text-white h-10 w-full rounded-sm flex items-center justify-center gap-2"
                   >
                     <i className="text-white">
                       <MdModeEdit size={"1rem"} />

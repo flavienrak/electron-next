@@ -8,9 +8,9 @@ import { FaCaretRight } from "react-icons/fa";
 export default function Accueil() {
   return (
     <>
-      <div className="w-full h-full bg-[var(--primary-color)] rounded-md flex flex-col">
+      <div className="w-full h-full rounded-md flex flex-col gap-4">
         <Top label={"Accueil"} />
-        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto flex items-center justify-center">
+        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto flex items-center justify-center scr">
           <div className="flex flex-col justify-between h-full">
             <div className="flex flex-col gap-10 py-10">
               <h1 className="flex flex-col justify-center text-center gap-2">

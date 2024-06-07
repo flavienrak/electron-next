@@ -11,9 +11,9 @@ export default function Theme() {
   console.log(mode);
   return (
     <>
-      <div className="w-full h-full flex flex-col bg-[var(--primary-color)] rounded-md">
+      <div className="w-full h-full flex flex-col rounded-md gap-4">
         <Top label={"Theme"} />
-        <div className="bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto flex flex-col gap-8">
+        <div className="bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto flex flex-col gap-8 scr">
           <div className="flex flex-col w-full gap-6">
             <h1 className="text-4xl text-[var(--primary-color)] uppercase">
               Choisir un mode
@@ -22,7 +22,7 @@ export default function Theme() {
               <label
                 onClick={() => dispatch(updatePersistInfos({ mode: "light" }))}
                 className={`flex items-center gap-4 bg-[var(--white)] p-4 w-1/2 shadow-sm border-slate-200 rounded-md ${
-                  mode === "light" ? "border-8" : "cursor-poinnter"
+                  mode === "light" ? "border-4" : "cursor-poinnter"
                 }`}
               >
                 <span
@@ -33,7 +33,7 @@ export default function Theme() {
               <label
                 onClick={() => dispatch(updatePersistInfos({ mode: "dark" }))}
                 className={`flex items-center gap-4 bg-[var(--dark)] p-4 w-1/2 shadow-sm border-slate-200 rounded-md ${
-                  mode === "dark" ? "border-8" : "cursor-poinnter"
+                  mode === "dark" ? "border-4" : "cursor-poinnter"
                 }`}
               >
                 <span

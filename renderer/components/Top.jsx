@@ -9,9 +9,11 @@ export default function Top({ label }) {
   const { user } = useSelector((state) => state.user);
   return (
     <>
-      <div className="flex items-center min-h-20 h-20 px-8 rounded-md">
+      <div className="flex items-center min-h-20 h-20 px-8 rounded-md bg-[var(--primary-color)] shadow-sm">
         <div className="flex justify-between items-center w-full">
-          <label className="uppercase text-white">{label}</label>
+          <label className="uppercase text-[var(--white)] font-semibold">
+            {label}
+          </label>
           <div className="flex gap-2 items-center">
             <Link
               href={{
@@ -25,7 +27,7 @@ export default function Top({ label }) {
               {/* <i className="p-1 min-w-10 min-h-10 not-italic bg-white rounded-full flex justify-center items-center text-black uppercase">
                 {letter}
               </i> */}
-              <p className="flex items-center gap-2 text-white font-bold">
+              <p className="flex items-center gap-2 text-[var(--white)] font-bold">
                 <span className="capitalize">{user.prenom}</span>
                 <span className="uppercase">{user.nom}</span>
               </p>

@@ -58,9 +58,9 @@ export default function Postes() {
 
   return (
     <>
-      <div className="w-full h-full bg-[var(--primary-color)] rounded-md flex flex-col">
+      <div className="w-full h-full rounded-md flex flex-col gap-4">
         <Top label={"Postes"} />
-        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md overflow-auto">
+        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md overflow-auto scr">
           <div className="flex gap-10 flex-col">
             {!isEmpty(postes) ? (
               <>
@@ -123,20 +123,20 @@ export default function Postes() {
                     <div className="w-full">
                       <table className="w-full border border-[var(--bg)] rounded-sm">
                         <thead className="">
-                          <tr className="bg-[var(--bg)] h-14">
-                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
+                          <tr className="bgGradient h-14">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--white)]">
                               Titre
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--white)]">
                               Competences
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--white)]">
                               Diplomes
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--white)]">
                               Experiences
                             </th>
-                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--cont)]">
+                            <th className="w-1/5 font-semibold text-left px-4 text-[var(--white)]">
                               Action
                             </th>
                           </tr>

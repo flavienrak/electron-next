@@ -436,9 +436,9 @@ export default function Nouveau() {
 
   return (
     <>
-      <div className="w-full h-full bg-[var(--primary-color)] rounded-md flex flex-col">
+      <div className="w-full h-full rounded-md flex flex-col gap-4">
         <Top label={"Nouveau"} />
-        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto">
+        <div className="flex-1 bg-[var(--bg-1)] p-8 rounded-md h-full overflow-auto scr">
           <form onSubmit={handleSubmit} className="flex gap-8 flex-col">
             <div className="flex justify-between gap-10">
               {links.map((item) => (
@@ -447,7 +447,7 @@ export default function Nouveau() {
                   onClick={() => setActive(item.path)}
                   className={`flex items-center justify-center whitespace-nowrap w-1/2 h-10 uppercase rounded-sm border border-[var(--primary-color)] cursor-pointer ${
                     active === item.path
-                      ? "bg-[var(--primary-color)] text-[var(--white)]"
+                      ? "bgGradient text-[var(--white)]"
                       : "text-[var(--primary-color)]"
                   }`}
                 >
@@ -772,7 +772,7 @@ export default function Nouveau() {
                 <button
                   type="submit"
                   disabled={!titre.valid || isEmpty(missions.value)}
-                  className={`bg-green-500 text-white h-10 rounded-sm w-full ${
+                  className={`bg-green-500 text-white h-10 rounded-sm w-full border border-green-500 ${
                     titre.valid && !isEmpty(missions.value)
                       ? "opacity-100 cursor-pointer"
                       : "opacity-50"

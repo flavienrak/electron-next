@@ -503,7 +503,7 @@ export default function EditProfil({ setIsEditProfil }) {
     <>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-1 gap-10 flex-col bg-[var(--bg-1)] p-8 rounded-md overflow-auto max-h-full"
+        className="flex flex-1 gap-10 flex-col bg-[var(--bg-1)] p-8 rounded-md overflow-auto max-h-full scr"
       >
         <div className="flex justify-between gap-10">
           {links.map((item) => (
@@ -512,7 +512,7 @@ export default function EditProfil({ setIsEditProfil }) {
               onClick={() => setActive(item.path)}
               className={`flex items-center justify-center whitespace-nowrap w-1/2 h-10 uppercase rounded-sm border border-[var(--primary-color)] cursor-pointer ${
                 active === item.path
-                  ? "bg-[var(--primary-color)] text-white"
+                  ? "bgGradient text-white"
                   : "text-[var(--primary-color)]"
               }`}
             >
@@ -527,8 +527,8 @@ export default function EditProfil({ setIsEditProfil }) {
               {/* profil */}
               <div className="w-1/4 flex justify-center items-center h-full">
                 <div
-                  className={`relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full border-2 border-[var(--bg)] ${
-                    !isEmpty(image) ? "" : "bg-[var(--primary-color)]"
+                  className={`relative flex justify-center items-center min-h-36 min-w-36 w-36 rounded-full border border-[var(--primary-color)] ${
+                    !isEmpty(image) ? "" : "bgGradient"
                   } `}
                 >
                   {!isEmpty(image) ? (
@@ -903,7 +903,7 @@ export default function EditProfil({ setIsEditProfil }) {
             <button
               type="submit"
               disabled={!canSubmit}
-              className={`bg-green-500 text-white h-10 rounded-sm w-full ${
+              className={`bg-green-500 text-white h-10 rounded-sm w-full border border-green-500 ${
                 canSubmit ? "opacity-100 cursor-pointer" : "opacity-50"
               }`}
             >

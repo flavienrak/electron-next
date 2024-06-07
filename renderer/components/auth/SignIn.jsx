@@ -43,7 +43,6 @@ export default function SignInPage({ setTypeServerAdress }) {
     }
   }, [email.value, password.value]);
 
-  console.log(ip);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmit(true);
@@ -56,8 +55,6 @@ export default function SignInPage({ setTypeServerAdress }) {
         password: password.value,
       });
       setIsLoading(false);
-
-      console.log(res);
 
       if (res?.userNotFound) {
         addMessage({
@@ -80,8 +77,8 @@ export default function SignInPage({ setTypeServerAdress }) {
 
   return (
     <>
-      <div className="w-full h-full bg-[var(--bg)] flex justify-center items-center">
-        <div className="w-96 flex flex-col justify-center items-center h-full gap-8">
+      <div className="relative w-full h-full bg-[var(--bg)] flex justify-center items-center overflow-hidden">
+        <div className="w-96 flex flex-col justify-center items-center h-full gap-8 z-10">
           <form
             onSubmit={handleSubmit}
             className="p-10 w-full rounded-md shadow-md flex flex-col gap-5 bg-[var(--bg-1)]"
@@ -103,7 +100,7 @@ export default function SignInPage({ setTypeServerAdress }) {
                     }
                     className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                   />
-                  <i className="text-[var(--cont)] absolute left-3">
+                  <i className="text-slate-500 absolute left-3">
                     <MdEmail size={"1.15rem"} />
                   </i>
                 </div>
@@ -119,7 +116,7 @@ export default function SignInPage({ setTypeServerAdress }) {
                     }
                     className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                   />
-                  <i className="text-[var(--cont)] absolute left-3">
+                  <i className="text-slate-500 absolute left-3">
                     <IoMdLock size={"1.15rem"} />
                   </i>
                 </div>
@@ -161,6 +158,7 @@ export default function SignInPage({ setTypeServerAdress }) {
             </label>
           </div>
         </div>
+        <div className="cadre"></div>
       </div>
     </>
   );

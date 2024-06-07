@@ -93,10 +93,10 @@ export default function SignUpPage() {
 
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center bg-[var(--bg)]">
+      <div className="relative w-full h-full flex justify-center items-center bg-[var(--bg)] overflow-hidden">
         <form
           onSubmit={handleSubmit}
-          className="p-10 rounded-md shadow-md flex flex-col gap-5 bg-[var(--bg-1)] w-96"
+          className="p-10 rounded-md shadow-md flex flex-col gap-5 bg-[var(--bg-1)] w-96 z-10"
         >
           <div className="flex flex-col">
             <h1 className="text-3xl font-semibold text-[var(--primary-color)]">
@@ -115,7 +115,7 @@ export default function SignUpPage() {
                   }
                   className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
-                <i className="text-[var(--cont)] absolute left-3">
+                <i className="text-slate-500 absolute left-3">
                   <BiSolidUser size={"1.15rem"} />
                 </i>
               </div>
@@ -128,7 +128,7 @@ export default function SignUpPage() {
                   }
                   className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
-                <i className="text-[var(--cont)] absolute left-3">
+                <i className="text-slate-500 absolute left-3">
                   <BiSolidUser size={"1.15rem"} />
                 </i>
               </div>
@@ -141,7 +141,7 @@ export default function SignUpPage() {
                   }
                   className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
-                <i className="text-[var(--cont)] absolute left-3">
+                <i className="text-slate-500 absolute left-3">
                   <MdEmail size={"1.15rem"} />
                 </i>
               </div>
@@ -154,7 +154,7 @@ export default function SignUpPage() {
                   }
                   className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
-                <i className="text-[var(--cont)] absolute left-3">
+                <i className="text-slate-500 absolute left-3">
                   <IoMdLock size={"1.15rem"} />
                 </i>
               </div>
@@ -187,6 +187,7 @@ export default function SignUpPage() {
             </Link>
           </div>
         </form>
+        <div className="cadre cadre-1"></div>
       </div>
     </>
   );
