@@ -128,22 +128,17 @@ export default function RootLayout() {
                   <Left />
                 </div>
                 <div className="h-full flex-1">
-                  {
-                    // currentQuery.path === "recent" ? (
-                    //   <Recent />
-                    // ) :
-                    currentQuery.path === "postes" ? (
-                      <Postes />
-                    ) : currentQuery.path === "nouveau" ? (
-                      <Nouveau />
-                    ) : currentQuery.path === "profil" ? (
-                      <Profil />
-                    ) : currentQuery.path === "theme" ? (
-                      <Theme />
-                    ) : (
-                      <Accueil />
-                    )
-                  }
+                  {currentQuery.path === "postes" ? (
+                    <Postes />
+                  ) : currentQuery.path === "nouveau" ? (
+                    <Nouveau />
+                  ) : currentQuery.path === "profil" ? (
+                    <Profil />
+                  ) : currentQuery.path === "theme" ? (
+                    <Theme />
+                  ) : (
+                    <Accueil />
+                  )}
                 </div>
               </div>
             )
@@ -179,7 +174,7 @@ export default function RootLayout() {
           )}
 
           {typeServerAdress && (
-            <div className="fixed top-0 left-0 h-full w-full flex justify-center items-center bg-slate-900 bg-opacity-25">
+            <div className="fixed top-0 left-0 h-full w-full flex justify-center items-center bg-slate-900 bg-opacity-25 z-20">
               <motion.form
                 ref={ref}
                 initial={{ y: -15 }}
@@ -205,7 +200,7 @@ export default function RootLayout() {
                   <button
                     type="submit"
                     disabled={!ipAdress.valid}
-                    className={`uppercase w-full h-10 bg-green-500 rounded-sm text-white ${
+                    className={`uppercase w-full h-10 bg-[var(--primary-color)] rounded-sm text-white ${
                       ipAdress.valid
                         ? "opacity-100 cursor-pointer"
                         : "opacity-80"
