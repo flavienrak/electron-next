@@ -23,7 +23,7 @@ export default function UidContextProvider({ children }) {
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
-  const { authToken } = useSelector((state) => state.persistInfos);
+  const { authToken, ip } = useSelector((state) => state.persistInfos);
   const { push } = useRouter();
 
   const [widthProgressBar, setWidthProgressBar] = useState(0);
@@ -44,14 +44,18 @@ export default function UidContextProvider({ children }) {
   }, [params]);
 
   useEffect(() => {
-    if (
-      unAuthenticadedPaths.includes(currentQuery?.path) &&
-      !isEmpty(authToken)
-    ) {
-      push("/home?path=accueil");
-    } else if (!isVerifyAuthJWT) {
-      setIsLoadingJWT(true);
-      setIsVerifyAuthJWT(true);
+    if (!isEmpty(ip)) {
+      if (
+        unAuthenticadedPaths.includes(currentQuery?.path) &&
+        !isEmpty(authToken)
+      ) {
+        push("/home?path=accueil");
+      } else if (!isVerifyAuthJWT) {
+        setIsLoadingJWT(true);
+        setIsVerifyAuthJWT(true);
+      }
+    } else {
+      push("/home?path=signIn");
     }
   }, [currentQuery?.path]);
 
@@ -59,7 +63,7 @@ export default function UidContextProvider({ children }) {
     if (isVerifyAuthJWT) {
       (async () => {
         if (authToken) {
-          const res = await verifyTokenController(authToken);
+          const res = await verifyTokenController({ ip, token: authToken });
 
           if (isEmpty(res?.decodedToken)) {
             setIsLogout(true);
@@ -79,13 +83,13 @@ export default function UidContextProvider({ children }) {
   useEffect(() => {
     if (userId) {
       (async () => {
-        let res = await getUserController(userId);
+        let res = await getUserController({ ip, userId });
         if (res?.user) {
           dispatch(fetchUserInfos({ user: res.user }));
         }
 
         setFetchPostes(true);
-        res = await getAllPostesController(userId);
+        res = await getAllPostesController({ ip, userId });
         setFetchPostes(false);
 
         if (res?.postes) {

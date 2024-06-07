@@ -6,13 +6,12 @@ import SignUpPage from "./auth/SignUp";
 import TopLoadingBar from "./utils/TopLoadingBar";
 import Left from "./Left";
 import Accueil from "./accueil/Accueil";
-import Recent from "./recent/Recent";
 import Postes from "./postes/Postes";
 import Nouveau from "./postes/Nouveau";
 import Profil from "./profil/Profil";
 import Theme from "./theme/Theme";
 
-import { isEmpty } from "../lib/allFunctions";
+import { isEmpty, isValidIPAdress } from "../lib/allFunctions";
 import { useContext, useEffect, useRef, useState } from "react";
 import { UidContext } from "../context/UidContext";
 import { motion } from "framer-motion";
@@ -32,11 +31,18 @@ export default function RootLayout() {
     loginOut,
   } = useContext(UidContext);
 
-  const { authToken, theme, mode } = useSelector((state) => state.persistInfos);
+  const { authToken, theme, mode, ip } = useSelector(
+    (state) => state.persistInfos
+  );
   const ref = useRef(null);
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("Accueil");
+  const [ipAdress, setIpAdress] = useState({
+    value: ip || "",
+    valid: !isEmpty(ip),
+  });
+  const [typeServerAdress, setTypeServerAdress] = useState(false);
 
   useEffect(() => {
     if (currentQuery?.path) {
@@ -58,6 +64,18 @@ export default function RootLayout() {
     }
   }, [currentQuery?.path]);
 
+  useEffect(() => {
+    if (isValidIPAdress(ipAdress.value)) {
+      if (!ipAdress.valid) {
+        setIpAdress((prev) => ({ ...prev, valid: true }));
+      }
+    } else {
+      if (ipAdress.valid) {
+        setIpAdress((prev) => ({ ...prev, valid: false }));
+      }
+    }
+  }, [ipAdress.value]);
+
   const handleLogout = async () => {
     if (authToken) {
       dispatch(updatePersistInfos({ authToken: "" }));
@@ -66,19 +84,13 @@ export default function RootLayout() {
     window.location = "/home?path=signIn";
   };
 
-  // useEffect(() => {
-  //   if (showLogout) {
-  //     const handleClickOutside = (e) => {
-  //       if (ref.current && !ref.current.contains(e.target)) {
-  //         loginOut(false);
-  //       }
-  //     };
-  //     document.addEventListener("click", handleClickOutside);
-  //     return () => {
-  //       document.removeEventListener("click", handleClickOutside);
-  //     };
-  //   }
-  // }, [showLogout]);
+  const handleSubmitIP = (e) => {
+    e.preventDefault();
+    if (ipAdress.valid) {
+      dispatch(updatePersistInfos({ ip: ipAdress.value }));
+      setTypeServerAdress(false);
+    }
+  };
 
   return (
     <div
@@ -105,9 +117,8 @@ export default function RootLayout() {
             width={widthProgressBar}
             visible={widthProgressBar > 0}
           />
-
           {currentQuery?.path === "signIn" ? (
-            <SignInPage />
+            <SignInPage setTypeServerAdress={setTypeServerAdress} />
           ) : currentQuery?.path === "signUp" ? (
             <SignUpPage />
           ) : (
@@ -164,6 +175,46 @@ export default function RootLayout() {
                   </button>
                 </div>
               </motion.div>
+            </div>
+          )}
+
+          {typeServerAdress && (
+            <div className="fixed top-0 left-0 h-full w-full flex justify-center items-center bg-slate-900 bg-opacity-25">
+              <motion.form
+                ref={ref}
+                initial={{ y: -15 }}
+                animate={{ y: 0 }}
+                onSubmit={handleSubmitIP}
+                className="p-8 rounded-md bg-[var(--bg-1)] w-80 flex justify-center flex-col gap-4 transition-all duration-100 ease-linear border border-[var(--cont)]"
+              >
+                <h1 className="uppercase text-[var(--cont)]">
+                  Adresse IP du serveur
+                </h1>
+                <input
+                  type="text"
+                  value={ipAdress.value}
+                  onChange={(e) =>
+                    setIpAdress((prev) => ({
+                      ...prev,
+                      value: e.target.value,
+                    }))
+                  }
+                  className="bg-[var(--bg)] p-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)]"
+                />
+                <div className="flex gap-4 w-full">
+                  <button
+                    type="submit"
+                    disabled={!ipAdress.valid}
+                    className={`uppercase w-full h-10 bg-green-500 rounded-sm text-white ${
+                      ipAdress.valid
+                        ? "opacity-100 cursor-pointer"
+                        : "opacity-80"
+                    }`}
+                  >
+                    Valider
+                  </button>
+                </div>
+              </motion.form>
             </div>
           )}
 

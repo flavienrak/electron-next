@@ -46,6 +46,7 @@ const links = [
 
 export default function Nouveau() {
   const { user } = useSelector((state) => state.user);
+  const { ip } = useSelector((state) => state.persistInfos);
   const { path } = useContext(UidContext);
   const { push } = useRouter();
 
@@ -399,6 +400,7 @@ export default function Nouveau() {
     if (titre.valid && !isEmpty(missions.value)) {
       setIsLoading(true);
       const res = await createPosteController({
+        ip,
         id: user.id,
         titre: titre.value.trim(),
         telephone: telephone.valid ? telephone.value.trim() : null,

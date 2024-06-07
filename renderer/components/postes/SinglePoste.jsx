@@ -18,7 +18,7 @@ import { BiEqualizer } from "react-icons/bi";
 import { useContext } from "react";
 import { UidContext } from "../../context/UidContext";
 import { matchPosteController } from "../../controllers/matchController";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateMatchInfos } from "../../redux/slices/matchSlice";
 import { useRouter } from "next/navigation";
 
@@ -29,11 +29,12 @@ export default function SinglePoste({
   actualMatch,
 }) {
   const { userId } = useContext(UidContext);
+  const { ip } = useSelector((state) => state.persistInfos);
   const { push } = useRouter();
   const dispatch = useDispatch();
 
   const handleMatch = async () => {
-    const res = await matchPosteController({ userId, posteId: poste.id });
+    const res = await matchPosteController({ ip, userId, posteId: poste.id });
 
     if (res?.match) {
       dispatch(updateMatchInfos({ match: res.match }));

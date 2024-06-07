@@ -57,9 +57,9 @@ export default function Left() {
             <span className="flex items-center justify-center bg-[var(--primary-color)] px-4 text-white rounded-sm">
               JBM
             </span>{" "}
-            <span className="text-2xl hidden md:block">JOB MATCHER</span>
+            <span className="text-2xl hidden md:block bgText">JOB MATCHER</span>
           </Link>
-          <div className="w-full flex-1 bg-[var(--primary-color)] rounded-md p-8">
+          <div className="w-full flex-1 bg-[var(--bg-gradient)] rounded-md p-8">
             <div className="relative flex flex-col justify-between h-full">
               <div className="gap-2 flex flex-col">
                 {menu.map((item) => (
@@ -73,8 +73,8 @@ export default function Left() {
                     }}
                     className={`flex items-center gap-2 p-2 transition-all duration-100 rounded-sm ${
                       currentQuery.path === item.path
-                        ? "bg-[var(--bg-1)] text-[var(--primary-color)]"
-                        : "text-white"
+                        ? "bg-[var(--bg)] text-[var(--primary-color)] border-l-2 border-[var(--primary-color)]"
+                        : "text-[var(--cont)]"
                     }`}
                   >
                     {item.icon}
@@ -85,7 +85,7 @@ export default function Left() {
               <div className="gap-2 flex flex-col">
                 <button
                   onClick={() => loginOut(true)}
-                  className={`flex items-center gap-2 p-2 border border-white text-white rounded-sm`}
+                  className={`flex items-center gap-2 p-2 border border-[var(--cont)] text-[var(--cont)] rounded-sm`}
                 >
                   <i>
                     <IoLogOutOutline size={"1.5rem"} />

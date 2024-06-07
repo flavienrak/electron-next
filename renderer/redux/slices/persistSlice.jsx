@@ -1,12 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-const initialState = { authToken: "", theme: "green", mode: "light" };
+const initialState = {
+  authToken: "",
+  theme: "green",
+  mode: "light",
+  ip: "",
+};
 
 const persistSlice = createSlice({
   name: "persistInfos",
   initialState,
   reducers: {
     updatePersistInfos: (state, action) => {
-      const { authToken, theme, mode } = action.payload;
+      const { authToken, theme, mode, ip } = action.payload;
       let newState = { ...state };
       if (typeof authToken !== "undefined") {
         newState.authToken = authToken;
@@ -16,6 +21,9 @@ const persistSlice = createSlice({
       }
       if (mode) {
         newState.mode = mode;
+      }
+      if (ip) {
+        newState.ip = ip;
       }
       return newState;
     },

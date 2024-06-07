@@ -47,6 +47,12 @@ export function isValidNumber(value) {
   return !isNaN(value) && isFinite(value);
 }
 
+export function isValidIPAdress(value) {
+  const regex =
+    /^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$/;
+  return regex.test(value);
+}
+
 export function isValidPhoneNumber(value) {
   let phoneNumber = value.trim();
   if (phoneNumber.startsWith("+")) {

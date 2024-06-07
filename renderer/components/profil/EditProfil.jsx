@@ -42,6 +42,7 @@ const links = [
 
 export default function EditProfil({ setIsEditProfil }) {
   const { user } = useSelector((state) => state.user);
+  const { ip } = useSelector((state) => state.persistInfos);
   const dispatch = useDispatch();
 
   const [active, setActive] = useState(links[0].path);
@@ -472,6 +473,7 @@ export default function EditProfil({ setIsEditProfil }) {
     if (canSubmit) {
       setIsLoading(true);
       const res = await editProfilController({
+        ip,
         id: user.id,
         nom: nom.valid ? nom.value : null,
         prenom: prenom.valid ? prenom.value : null,

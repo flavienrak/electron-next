@@ -10,9 +10,12 @@ import { useRouter } from "next/navigation";
 import { MdEmail } from "react-icons/md";
 import { IoMdLock } from "react-icons/io";
 import { BiSolidUser } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import { isEmpty } from "../../lib/allFunctions";
 
 export default function SignUpPage() {
   const { path, addMessage } = useContext(UidContext);
+  const { ip } = useSelector((state) => state.persistInfos);
   const { push } = useRouter();
 
   const [nom, setNom] = useState({ value: "", valid: false });
@@ -56,9 +59,16 @@ export default function SignUpPage() {
     e.preventDefault();
     setIsSubmit(true);
 
-    if (nom.valid && prenom.valid && email.valid && password.valid) {
+    if (
+      nom.valid &&
+      prenom.valid &&
+      email.valid &&
+      password.valid &&
+      !isEmpty(ip)
+    ) {
       setIsLoading(true);
       const res = await signUpController({
+        ip,
         nom: nom.value,
         prenom: prenom.value,
         email: email.value,
@@ -86,7 +96,7 @@ export default function SignUpPage() {
       <div className="w-full h-full flex justify-center items-center bg-[var(--bg)]">
         <form
           onSubmit={handleSubmit}
-          className="py-8 px-10 rounded-md shadow-md flex flex-col gap-5 bg-[var(--bg-1)]"
+          className="p-10 rounded-md shadow-md flex flex-col gap-5 bg-[var(--bg-1)] w-96"
         >
           <div className="flex flex-col">
             <h1 className="text-3xl font-semibold text-[var(--primary-color)]">
@@ -103,7 +113,7 @@ export default function SignUpPage() {
                   onChange={(e) =>
                     setNom((prev) => ({ ...prev, value: e.target.value }))
                   }
-                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)]"
+                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
                 <i className="text-[var(--cont)] absolute left-3">
                   <BiSolidUser size={"1.15rem"} />
@@ -116,7 +126,7 @@ export default function SignUpPage() {
                   onChange={(e) =>
                     setPrenom((prev) => ({ ...prev, value: e.target.value }))
                   }
-                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)]"
+                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
                 <i className="text-[var(--cont)] absolute left-3">
                   <BiSolidUser size={"1.15rem"} />
@@ -129,7 +139,7 @@ export default function SignUpPage() {
                   onChange={(e) =>
                     setEmail((prev) => ({ ...prev, value: e.target.value }))
                   }
-                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)]"
+                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
                 <i className="text-[var(--cont)] absolute left-3">
                   <MdEmail size={"1.15rem"} />
@@ -142,7 +152,7 @@ export default function SignUpPage() {
                   onChange={(e) =>
                     setPassword((prev) => ({ ...prev, value: e.target.value }))
                   }
-                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)]"
+                  className="bg-[var(--bg)] py-2 pl-10 pr-2 rounded-sm focus:outline outline-1 outline-offset-2 outline-slate-500 text-[var(--cont)] w-full"
                 />
                 <i className="text-[var(--cont)] absolute left-3">
                   <IoMdLock size={"1.15rem"} />
@@ -159,7 +169,7 @@ export default function SignUpPage() {
             </button>
           </div>
           <div className="px-1 flex items-center gap-1">
-            <p className="text-xs text-[var(--cont)]">
+            <p className="text-sm text-[var(--cont)]">
               A deja un compte enregistré ?
             </p>
             <Link
@@ -171,7 +181,7 @@ export default function SignUpPage() {
               }}
               className="flex justify-center items-center"
             >
-              <span className={`text-xs underline text-[var(--primary-color)]`}>
+              <span className={`text-sm underline text-[var(--primary-color)]`}>
                 Se connecter
               </span>
             </Link>

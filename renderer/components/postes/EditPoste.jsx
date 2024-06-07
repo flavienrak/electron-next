@@ -51,6 +51,7 @@ const links = [
 
 export default function EditPoste({ poste }) {
   const { user } = useSelector((state) => state.user);
+  const { ip } = useSelector((state) => state.persistInfos);
   const { path, currentQuery } = useContext(UidContext);
   const { push } = useRouter();
 
@@ -462,6 +463,7 @@ export default function EditPoste({ poste }) {
     if (!isEmpty(missions.value)) {
       setIsLoading(true);
       const res = await editPosteController({
+        ip,
         id: user.id,
         posteId: poste.id,
         telephone: telephone.valid ? telephone.value.trim() : null,
@@ -491,7 +493,11 @@ export default function EditPoste({ poste }) {
   };
 
   const handleRemove = async () => {
-    const res = await removePosteController({ id: user.id, posteId: poste.id });
+    const res = await removePosteController({
+      ip,
+      id: user.id,
+      posteId: poste.id,
+    });
 
     if (res?.poste) {
       dispatch(deletePosteInfos({ poste: res.poste }));

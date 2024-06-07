@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: job.matcher
+productName: Job Matcher
+copyright: Copyright © 2018 Flavien RAK
 directories:
   output: dist
   buildResources: resources

@@ -1,7 +1,7 @@
-const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-
-export const getUserController = async (id) => {
-  return await fetch(`${apiUrl}/user/${id}/get-user`).then((res) => res.json());
+export const getUserController = async ({ ip, userId }) => {
+  return await fetch(`http://${ip}:8000/api/user/${userId}/get-user`).then(
+    (res) => res.json()
+  );
 };
 
 export const editProfilController = async ({
@@ -21,7 +21,7 @@ export const editProfilController = async ({
   qualites,
   langues,
 }) => {
-  return await fetch(`${apiUrl}/user/${id}/edit-profil`, {
+  return await fetch(`http://${ip}:8000/api/user/${id}/edit-profil`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
