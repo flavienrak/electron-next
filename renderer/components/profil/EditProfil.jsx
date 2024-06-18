@@ -17,7 +17,7 @@ import { GrUserExpert } from "react-icons/gr";
 import { IoCamera } from "react-icons/io5";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsTelephone } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { State, City } from "country-state-city";
 import { isEmpty } from "../../lib/allFunctions";
@@ -28,6 +28,7 @@ import { updateUserInfos } from "../../redux/slices/userSlice";
 import { FaRegAddressBook } from "react-icons/fa";
 import { getName, getCode } from "country-list";
 import Image from "next/image";
+import { UidContext } from "../../context/UidContext";
 
 const links = [
   {
@@ -43,6 +44,7 @@ const links = [
 export default function EditProfil({ setIsEditProfil }) {
   const { user } = useSelector((state) => state.user);
   const { ip } = useSelector((state) => state.persistInfos);
+  const { addMessage } = useContext(UidContext);
   const dispatch = useDispatch();
 
   const [active, setActive] = useState(links[0].path);
@@ -494,6 +496,10 @@ export default function EditProfil({ setIsEditProfil }) {
 
       if (res?.user) {
         dispatch(updateUserInfos({ user: res.user }));
+        addMessage({
+          value: `Votre profil a ete mis a jour avec succes.`,
+          type: "success",
+        });
       }
       setIsEditProfil(false);
     }

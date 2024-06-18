@@ -6,6 +6,7 @@ export const getUserController = async ({ ip, userId }) => {
 
 export const editProfilController = async ({
   id,
+  ip,
   nom,
   prenom,
   telephone,

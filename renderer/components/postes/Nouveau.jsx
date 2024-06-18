@@ -47,7 +47,7 @@ const links = [
 export default function Nouveau() {
   const { user } = useSelector((state) => state.user);
   const { ip } = useSelector((state) => state.persistInfos);
-  const { path } = useContext(UidContext);
+  const { path, addMessage } = useContext(UidContext);
   const { push } = useRouter();
 
   const dispatch = useDispatch();
@@ -429,6 +429,10 @@ export default function Nouveau() {
           },
           { skipNull: true }
         );
+        addMessage({
+          value: `Le nouveau poste a ete ajoute avec succes.`,
+          type: "success",
+        });
         push(url);
       }
     }
